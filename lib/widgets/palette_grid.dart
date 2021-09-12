@@ -11,7 +11,7 @@ class PaletteGrid extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
       ),
-      physics: NeverScrollableScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       children: List.generate(
         colors.length,
         (index) => Container(
