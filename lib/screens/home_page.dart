@@ -32,17 +32,20 @@ class HomePage extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Text(
                         "Saved Palettes",
                         style: kPrimaryTextStyle.copyWith(fontSize: 20.0),
                       ),
-                      StateNotifierBuilder<List<PaletteInfo>>(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: StateNotifierBuilder<List<PaletteInfo>>(
                         builder: (context, state, child) {
                           debugPrint("build...");
                           return Column(
@@ -57,8 +60,8 @@ class HomePage extends StatelessWidget {
                         stateNotifier:
                             Provider.of<PaletteStateNotifier>(context),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

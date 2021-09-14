@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/models/palette_info.dart';
+import 'package:palette_generator/screens/palette_detail_page.dart';
 
 class PaletteListTile extends StatelessWidget {
   final PaletteInfo paletteInfo;
@@ -12,8 +13,14 @@ class PaletteListTile extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.palette),
       title: Text(paletteInfo.paletteName),
-      trailing:
-          Icon(paletteInfo.isFavorite ? Icons.favorite : Icons.favorite_border),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PaletteDetailPage(paletteInfo),
+          ),
+        );
+      },
     );
   }
 }
