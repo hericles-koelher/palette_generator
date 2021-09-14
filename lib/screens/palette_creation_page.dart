@@ -4,6 +4,7 @@ import 'package:palette_generator/models/color_list_state_notifier.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/models/slider_state_notifier.dart';
 import 'package:palette_generator/utils/constants.dart';
+import 'package:palette_generator/widgets/custom_alert_dialog.dart';
 import 'package:palette_generator/widgets/palette_grid.dart';
 import 'package:palette_generator/widgets/custom_slider.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,6 @@ import 'package:provider/provider.dart';
 // resolve varios problemas...
 
 class PaletteCreationPage extends StatelessWidget {
-  final textController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +38,7 @@ class PaletteCreationPage extends StatelessWidget {
               // TODO: Ao salvar pedir para definir o nome da paletta.
               showDialog<void>(
                 context: context,
-                builder: _showNameDialog,
+                builder: (context) => CustomAlertDialog(),
               );
             },
             icon: Icon(
@@ -98,46 +97,6 @@ class PaletteCreationPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _showNameDialog(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        "What is your palette name?",
-        style: kPrimaryTextStyle,
-      ),
-      content: TextField(
-        controller: textController,
-        maxLines: 1,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {},
-          child: Text("Cancel"),
-        ),
-        TextButton(
-          onPressed: () {
-            List<Color> colors =
-                Provider.of<ColorListStateNotifier>(context, listen: false)
-                    .state;
-
-            var paletteNotifier =
-                Provider.of<PaletteStateNotifier>(context, listen: false);
-
-            paletteNotifier.savePalette(
-              paletteName: textController.text,
-              colors: colors,
-            );
-
-            Navigator.popUntil(context, (route) => route.isFirst);
-
-            final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          },
-          child: Text("Done"),
-        ),
-      ],
     );
   }
 }
