@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/models/palette_info.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
+import 'package:palette_generator/widgets/palette_info_list_view.dart';
 import 'package:provider/provider.dart';
 
 class PaletteDetailPage extends StatelessWidget {
@@ -24,7 +25,7 @@ class PaletteDetailPage extends StatelessWidget {
           },
         ),
         title: Text(
-          "Details",
+          paletteInfo.paletteName,
         ),
         actions: [
           IconButton(
@@ -58,6 +59,23 @@ class PaletteDetailPage extends StatelessWidget {
             onPressed: () {},
           ),
         ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+              child: Text(
+                "Number of colors: ${paletteInfo.colors.length}",
+              ),
+            ),
+            Expanded(
+              flex: 8,
+              child: PaletteInfoListView(colors: paletteInfo.colors),
+            ),
+          ],
+        ),
       ),
     );
   }
