@@ -19,8 +19,10 @@ class HomePage extends StatelessWidget {
         slivers: [
           SliverAppBar(
             pinned: true,
+            floating: true,
+            snap: true,
             expandedHeight: screenHeight / 3,
-            collapsedHeight: screenHeight / 10,
+            collapsedHeight: screenHeight / 12,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
@@ -50,10 +52,15 @@ class HomePage extends StatelessWidget {
                           debugPrint("build...");
                           return Column(
                             children: List.generate(
-                              state.length,
-                              (index) => PaletteListTile(
-                                paletteInfo: state[index],
-                              ),
+                              (state.length * 2) - 1,
+                              (index) {
+                                if (index.isEven)
+                                  return PaletteListTile(
+                                    paletteInfo: state[index ~/ 2],
+                                  );
+                                else
+                                  return Divider();
+                              },
                             ),
                           );
                         },
