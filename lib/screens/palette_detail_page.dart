@@ -68,6 +68,7 @@ class PaletteDetailPage extends StatelessWidget {
             Expanded(
               child: Text(
                 "Number of colors: ${paletteInfo.colors.length}",
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
             Expanded(

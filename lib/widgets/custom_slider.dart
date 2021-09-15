@@ -23,11 +23,11 @@ class CustomSlider extends StatelessWidget {
                 children: [
                   Text(
                     "Number of colors:",
-                    style: kPrimaryTextStyle.copyWith(fontSize: 20.0),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Text(
                     state.toString(),
-                    style: kPrimaryTextStyle.copyWith(fontSize: 20.0),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
               ),

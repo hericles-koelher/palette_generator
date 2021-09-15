@@ -27,7 +27,6 @@ class HomePage extends StatelessWidget {
               centerTitle: true,
               title: Text(
                 "PALETTE GENERATOR",
-                style: kDefaultTextStyle.copyWith(fontSize: 20.0),
               ),
             ),
           ),
@@ -42,7 +41,7 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.all(25.0),
                       child: Text(
                         "Saved Palettes",
-                        style: kPrimaryTextStyle.copyWith(fontSize: 20.0),
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                     Padding(
@@ -52,7 +51,7 @@ class HomePage extends StatelessWidget {
                           debugPrint("build...");
                           return Column(
                             children: List.generate(
-                              (state.length * 2) - 1,
+                              state.length > 0 ? (state.length * 2) - 1 : 0,
                               (index) {
                                 if (index.isEven)
                                   return PaletteListTile(
@@ -78,8 +77,6 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
-          // Puto pq não tá pegando a cor do tema?
-          color: Colors.white,
           size: 30.0,
         ),
         onPressed: () {

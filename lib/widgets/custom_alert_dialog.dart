@@ -28,7 +28,6 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
     return AlertDialog(
       title: Text(
         "What is your palette name?",
-        style: kPrimaryTextStyle,
       ),
       content: TextField(
         controller: _textEditingController,

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:palette_generator/models/color_list_state_notifier.dart';
@@ -6,6 +7,7 @@ import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/models/slider_state_notifier.dart';
 import 'package:palette_generator/screens/home_page.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(PaletteGenerator());
@@ -36,13 +38,24 @@ class PaletteGenerator extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: "Palette Generator",
         theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-          primaryColor: Colors.deepPurple,
-          primaryColorDark: Colors.deepPurple[700],
-          primaryColorLight: Colors.deepPurple[100],
-          accentColor: Colors.lime,
+          fontFamily: "Nunito",
           dividerColor: Colors.grey[400],
           iconTheme: IconThemeData(color: Colors.white),
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.deepPurple,
+          ).copyWith(secondary: Colors.lime),
+          textTheme: TextTheme(
+            bodyText1: TextStyle(
+              fontFamily: "Nunito",
+              color: Colors.grey[900],
+              fontSize: 16,
+            ),
+            bodyText2: TextStyle(
+              fontFamily: "Nunito",
+              color: Colors.grey[600],
+              fontSize: 14,
+            ),
+          ),
         ),
         home: HomePage(),
       ),

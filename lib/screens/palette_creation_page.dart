@@ -30,7 +30,6 @@ class PaletteCreationPage extends StatelessWidget {
         ),
         title: Text(
           "PALETTE CREATOR",
-          style: kDefaultTextStyle,
         ),
         actions: [
           IconButton(
@@ -88,7 +87,6 @@ class PaletteCreationPage extends StatelessWidget {
                     },
                     child: Text(
                       "GENERATE",
-                      style: kDefaultTextStyle.copyWith(fontSize: 20.0),
                     ),
                   ),
                 ],
