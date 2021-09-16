@@ -1,4 +1,4 @@
-name: Palette Generator
+name: palette_generator
 description: A simple Flutter palette generator.
 
 # The following line prevents the package from being accidentally published to

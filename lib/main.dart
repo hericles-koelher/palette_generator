@@ -51,6 +51,7 @@ class PaletteGenerator extends StatelessWidget {
                 colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.deepPurple,
                 ).copyWith(secondary: Colors.lime),
+                primaryColor: Colors.deepPurple[600],
                 textTheme: TextTheme(
                   bodyText1: TextStyle(
                     fontFamily: "Nunito",
