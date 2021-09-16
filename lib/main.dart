@@ -7,7 +7,6 @@ import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/models/slider_state_notifier.dart';
 import 'package:palette_generator/screens/home_page.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(PaletteGenerator());
