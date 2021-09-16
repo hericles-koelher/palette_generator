@@ -16,6 +16,14 @@ import 'package:provider/provider.dart';
 class PaletteCreationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final colorListNotifier =
+        Provider.of<ColorListStateNotifier>(context, listen: false);
+
+    final sliderNotifier =
+        Provider.of<SliderStateNotifier>(context, listen: false);
+
+    colorListNotifier.createColorList(numberOfColors: sliderNotifier.state);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -72,16 +80,9 @@ class PaletteCreationPage extends StatelessWidget {
                   CustomSlider(),
                   ElevatedButton(
                     onPressed: () {
-                      final colorListNotifier =
-                          Provider.of<ColorListStateNotifier>(context,
-                              listen: false);
-
-                      final sliderNotifier = Provider.of<SliderStateNotifier>(
-                          context,
-                          listen: false);
-
                       colorListNotifier.createColorList(
-                          numberOfColors: sliderNotifier.state);
+                        numberOfColors: sliderNotifier.state,
+                      );
                     },
                     child: Text(
                       "GENERATE",
