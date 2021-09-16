@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/models/color_list_state_notifier.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
-import 'package:palette_generator/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class CustomAlertDialog extends StatefulWidget {

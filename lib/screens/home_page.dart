@@ -3,7 +3,6 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:palette_generator/models/palette_info.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/screens/palette_creation_page.dart';
-import 'package:palette_generator/utils/constants.dart';
 import 'package:palette_generator/widgets/palette_list_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +47,6 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: StateNotifierBuilder<List<PaletteInfo>>(
                         builder: (context, state, child) {
-                          debugPrint("build...");
                           return Column(
                             children: List.generate(
                               state.length > 0 ? (state.length * 2) - 1 : 0,
