@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(25.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Text(
                         "Saved Palettes",
                         style: Theme.of(context).textTheme.bodyText1,

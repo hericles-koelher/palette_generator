@@ -55,12 +55,29 @@ class PaletteGenerator extends StatelessWidget {
                   bodyText1: TextStyle(
                     fontFamily: "Nunito",
                     color: Colors.grey[900],
-                    fontSize: 16,
+                    fontSize: 20,
                   ),
                   bodyText2: TextStyle(
                     fontFamily: "Nunito",
                     color: Colors.grey[600],
-                    fontSize: 14,
+                    fontSize: 18,
+                  ),
+                ),
+                snackBarTheme: SnackBarThemeData(
+                  contentTextStyle: TextStyle(
+                    fontFamily: "Nunito",
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                textButtonTheme: TextButtonThemeData(
+                  style: ButtonStyle(
+                    textStyle: MaterialStateProperty.all(
+                      TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                 ),
               ),

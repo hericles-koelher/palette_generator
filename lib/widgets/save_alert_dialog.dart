@@ -3,14 +3,14 @@ import 'package:palette_generator/models/color_list_state_notifier.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:provider/provider.dart';
 
-class CustomAlertDialog extends StatefulWidget {
-  const CustomAlertDialog({Key? key}) : super(key: key);
+class SaveAlertDialog extends StatefulWidget {
+  const SaveAlertDialog({Key? key}) : super(key: key);
 
   @override
-  _CustomAlertDialogState createState() => _CustomAlertDialogState();
+  _SaveAlertDialogState createState() => _SaveAlertDialogState();
 }
 
-class _CustomAlertDialogState extends State<CustomAlertDialog> {
+class _SaveAlertDialogState extends State<SaveAlertDialog> {
   late TextEditingController _textEditingController;
 
   @override
@@ -27,17 +27,25 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
     return AlertDialog(
       title: Text(
         "What is your palette name?",
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              fontSize: 20,
+            ),
       ),
       content: TextField(
         controller: _textEditingController,
         maxLines: 1,
+        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+              fontSize: 18,
+            ),
       ),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text("Cancel"),
+          child: Text(
+            "Cancel",
+          ),
         ),
         TextButton(
           onPressed: _textEditingController.text.isEmpty
@@ -60,7 +68,9 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
 
                   final snackBar = SnackBar(
                     content: Text(
-                        "Palette \"${_textEditingController.text}\" was saved!"),
+                      "Palette \"${_textEditingController.text}\" was saved!",
+                      maxLines: 1,
+                    ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },

@@ -15,7 +15,9 @@ class PaletteInfoListTile extends StatelessWidget {
       contentPadding: const EdgeInsets.all(5.0),
       title: Text(
         _colorToHex(),
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+              fontSize: 15,
+            ),
       ),
       trailing: Material(
         elevation: 4.0,

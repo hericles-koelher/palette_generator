@@ -4,8 +4,8 @@ import 'package:palette_generator/models/slider_state_notifier.dart';
 import 'package:palette_generator/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-class CustomSlider extends StatelessWidget {
-  const CustomSlider({Key? key}) : super(key: key);
+class NumberOfColorsSlider extends StatelessWidget {
+  const NumberOfColorsSlider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class CustomSlider extends StatelessWidget {
         return Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -27,7 +27,7 @@ class CustomSlider extends StatelessWidget {
                   ),
                   Text(
                     state.toString(),
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyText1!,
                   ),
                 ],
               ),

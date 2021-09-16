@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:palette_generator/models/color_list_state_notifier.dart';
 import 'package:palette_generator/models/slider_state_notifier.dart';
-import 'package:palette_generator/widgets/custom_alert_dialog.dart';
+import 'package:palette_generator/widgets/save_alert_dialog.dart';
 import 'package:palette_generator/widgets/palette_grid.dart';
-import 'package:palette_generator/widgets/custom_slider.dart';
+import 'package:palette_generator/widgets/number_of_colors_slider.dart';
 import 'package:provider/provider.dart';
 
 // Topo com Grid de cores.
@@ -25,6 +25,7 @@ class PaletteCreationPage extends StatelessWidget {
     colorListNotifier.createColorList(numberOfColors: sliderNotifier.state);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -40,10 +41,9 @@ class PaletteCreationPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // TODO: Ao salvar pedir para definir o nome da paletta.
               showDialog<void>(
                 context: context,
-                builder: (context) => CustomAlertDialog(),
+                builder: (context) => SaveAlertDialog(),
               );
             },
             icon: Icon(
@@ -77,7 +77,7 @@ class PaletteCreationPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CustomSlider(),
+                  NumberOfColorsSlider(),
                   ElevatedButton(
                     onPressed: () {
                       colorListNotifier.createColorList(
@@ -86,6 +86,9 @@ class PaletteCreationPage extends StatelessWidget {
                     },
                     child: Text(
                       "GENERATE",
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                 ],

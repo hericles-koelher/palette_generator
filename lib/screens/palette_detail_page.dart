@@ -61,14 +61,20 @@ class PaletteDetailPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+        padding: const EdgeInsets.only(
+          top: 20,
+          left: 25,
+          right: 25,
+        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Text(
                 "Number of colors: ${paletteInfo.colors.length}",
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 18,
+                    ),
               ),
             ),
             Expanded(

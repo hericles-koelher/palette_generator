@@ -11,8 +11,18 @@ class PaletteListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(Icons.palette),
-      title: Text(paletteInfo.paletteName),
+      leading: Icon(
+        Icons.palette,
+        size: 25,
+      ),
+      title: Text(
+        paletteInfo.paletteName,
+        maxLines: 1,
+        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+              fontSize: 18,
+              overflow: TextOverflow.ellipsis,
+            ),
+      ),
       onTap: () {
         Navigator.push(
           context,
