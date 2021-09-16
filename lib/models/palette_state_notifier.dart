@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:palette_generator/models/palette_info.dart';
@@ -17,22 +15,20 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
   PaletteStateNotifier.fromJson(Map<String, dynamic> json)
       : super(
           List.generate(
-            json["number_of_palettes"],
-            (index) => PaletteInfo.fromJson(json["palettes"][index]),
+            json["palette_state"]["number_of_palettes"],
+            (index) =>
+                PaletteInfo.fromJson(json["palette_state"]["palettes"][index]),
           ),
         );
 
-  @override
-  void dispose() {
+  void _save() {
     PreferencesManager.save(
+      "palette_state",
       {
-        "palette_state": {
-          "palettes": state,
-          "number_of_palettes": state.length,
-        },
+        "palettes": state,
+        "number_of_palettes": state.length,
       },
     );
-    super.dispose();
   }
 
   void savePalette({required String paletteName, required List<Color> colors}) {
@@ -49,6 +45,8 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
 
     state = [...state]
       ..sort((pA, pB) => pA.paletteName.compareTo(pB.paletteName));
+
+    _save();
   }
 
   void deletePalette(String id) {
@@ -58,8 +56,12 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
           _lastDeleted = state.firstWhere((palette) => palette.id == id);
 
           state = [...state]..remove(_lastDeleted);
+
+          _save();
         }, (List<PaletteInfo> oldState) {
           state = oldState;
+
+          _save();
         }, description: "Delete palette with ID = $id"),
       );
     } catch (e) {

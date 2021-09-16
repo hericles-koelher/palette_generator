@@ -47,7 +47,6 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: StateNotifierBuilder<List<PaletteInfo>>(
                         builder: (context, state, child) {
-                          debugPrint("build...");
                           return Column(
                             children: List.generate(
                               state.length > 0 ? (state.length * 2) - 1 : 0,
