@@ -3,7 +3,6 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:palette_generator/models/palette_info.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/screens/palette_creation_page.dart';
-import 'package:palette_generator/utils/constants.dart';
 import 'package:palette_generator/widgets/palette_list_tile.dart';
 import 'package:provider/provider.dart';
 

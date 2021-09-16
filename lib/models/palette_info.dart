@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/painting.dart';
 
 class PaletteInfo {
@@ -10,6 +12,17 @@ class PaletteInfo {
     required this.paletteName,
     required this.colors,
   });
+
+  PaletteInfo.fromJson(Map<String, dynamic> json)
+      : id = json["id"],
+        paletteName = json["palette_name"],
+        colors = json["colors"];
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "palette_name": paletteName,
+        "colors": jsonEncode(colors),
+      };
 
   @override
   String toString() {

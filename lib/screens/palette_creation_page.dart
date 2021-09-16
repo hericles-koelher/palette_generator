@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:palette_generator/models/color_list_state_notifier.dart';
-import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/models/slider_state_notifier.dart';
-import 'package:palette_generator/utils/constants.dart';
 import 'package:palette_generator/widgets/custom_alert_dialog.dart';
 import 'package:palette_generator/widgets/palette_grid.dart';
 import 'package:palette_generator/widgets/custom_slider.dart';
