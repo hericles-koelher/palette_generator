@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesManager {
@@ -17,29 +15,12 @@ class PreferencesManager {
     }
   }
 
-  static Future<SharedPreferences> getPreferences() async {
-    final preferences = await SharedPreferences.getInstance();
-    // preferences.clear();
-
-    if (!preferences.containsKey("palette_state")) {
-      Map<String, dynamic> json = {
-        "palettes": [],
-        "number_of_palettes": 0,
-      };
-      save("palette_state", json);
-    }
-
-    return preferences;
-  }
-
-  static Future<void> save(String key, dynamic value) async {
+  static Future<void> save(Map<String, dynamic> json) async {
     if (_initialized == false) {
       await _init();
     }
 
-    Map<String, dynamic> mapValue = {key: value};
-
-    _preferences.setString(_appNamespace, jsonEncode(mapValue));
+    _preferences.setString(_appNamespace, jsonEncode(json));
   }
 
   static Future<Object?> get([String key = _appNamespace]) async {
