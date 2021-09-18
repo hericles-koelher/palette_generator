@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:palette_generator/models/color_list_state_notifier.dart';
 import 'package:palette_generator/models/slider_state_notifier.dart';
 import 'package:palette_generator/widgets/save_alert_dialog.dart';
 import 'package:palette_generator/widgets/palette_grid.dart';
 import 'package:palette_generator/widgets/number_of_colors_slider.dart';
 import 'package:provider/provider.dart';
-
-// Topo com Grid de cores.
-// Parte de baixo com slider e botão de gerar.
-
-// Mudar para um sliver a exibição...
-// resolve varios problemas...
 
 class PaletteCreationPage extends StatelessWidget {
   @override
@@ -22,14 +17,14 @@ class PaletteCreationPage extends StatelessWidget {
     final sliderNotifier =
         Provider.of<SliderStateNotifier>(context, listen: false);
 
-    colorListNotifier.createColorList(numberOfColors: sliderNotifier.state);
+    // colorListNotifier.createColorList(numberOfColors: sliderNotifier.state);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
+          icon: FaIcon(
+            FontAwesomeIcons.arrowLeft,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -40,15 +35,15 @@ class PaletteCreationPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
+            icon: FaIcon(
+              FontAwesomeIcons.solidSave,
+            ),
             onPressed: () {
               showDialog<void>(
                 context: context,
                 builder: (context) => SaveAlertDialog(),
               );
             },
-            icon: Icon(
-              Icons.save,
-            ),
           ),
         ],
       ),

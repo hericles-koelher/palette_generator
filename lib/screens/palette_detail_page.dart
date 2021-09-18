@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:palette_generator/models/palette_info.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/widgets/palette_info_list_view.dart';
@@ -29,8 +30,8 @@ class PaletteDetailPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.delete_outlined,
+            icon: FaIcon(
+              FontAwesomeIcons.trashAlt,
             ),
             onPressed: () {
               paletteNotifier.deletePalette(paletteInfo.id);
@@ -53,8 +54,8 @@ class PaletteDetailPage extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: Icon(
-              Icons.share,
+            icon: FaIcon(
+              FontAwesomeIcons.shareAlt,
             ),
             onPressed: () {},
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:palette_generator/models/palette_info.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/screens/palette_creation_page.dart';
@@ -23,6 +24,23 @@ class HomePage extends StatelessWidget {
             expandedHeight: screenHeight / 3,
             collapsedHeight: screenHeight / 12,
             flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Colors.lime,
+                      Colors.yellow[400]!,
+                      // Colors.orange,
+                      Colors.red,
+                      // Colors.blue,
+                      // Colors.blue[700]!,
+                      // Colors.deepPurple,
+                    ],
+                  ),
+                ),
+              ),
               centerTitle: true,
               title: Text(
                 "PALETTE GENERATOR",
@@ -73,9 +91,8 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          size: 30.0,
+        child: FaIcon(
+          FontAwesomeIcons.plus,
         ),
         onPressed: () {
           Navigator.push(
@@ -85,6 +102,39 @@ class HomePage extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        shape: CircularNotchedRectangle(),
+        elevation: 2.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: FaIcon(
+                FontAwesomeIcons.bars,
+              ),
+              onPressed: () {},
+            ),
+            Row(
+              children: [
+                IconButton(
+                  icon: FaIcon(
+                    FontAwesomeIcons.search,
+                  ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: FaIcon(
+                    FontAwesomeIcons.ellipsisV,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

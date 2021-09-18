@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:palette_generator/models/palette_info.dart';
+import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/screens/palette_detail_page.dart';
+import 'package:provider/provider.dart';
 
 class PaletteListTile extends StatelessWidget {
   final PaletteInfo paletteInfo;
@@ -11,10 +14,7 @@ class PaletteListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(
-        Icons.palette,
-        size: 25,
-      ),
+      leading: FaIcon(FontAwesomeIcons.palette),
       title: Text(
         paletteInfo.paletteName,
         maxLines: 1,
@@ -22,6 +22,21 @@ class PaletteListTile extends StatelessWidget {
               fontSize: 18,
               overflow: TextOverflow.ellipsis,
             ),
+      ),
+      trailing: IconButton(
+        icon: paletteInfo.isFavorite
+            ? FaIcon(
+                FontAwesomeIcons.solidHeart,
+                color: Colors.redAccent,
+              )
+            : FaIcon(FontAwesomeIcons.heart),
+        onPressed: () {
+          Provider.of<PaletteStateNotifier>(context, listen: false)
+              .updatePalette(
+            paletteInfo,
+            isFavorite: !paletteInfo.isFavorite,
+          );
+        },
       ),
       onTap: () {
         Navigator.push(
