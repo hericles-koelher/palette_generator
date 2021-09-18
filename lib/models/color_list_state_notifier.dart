@@ -4,7 +4,7 @@ import 'package:state_notifier/state_notifier.dart';
 
 class ColorListStateNotifier extends StateNotifier<List<Color>>
     with LocatorMixin {
-  ColorListStateNotifier(List<Color> state) : super(state);
+  ColorListStateNotifier([List<Color> state = const []]) : super(state);
 
   void createColorList({required int numberOfColors}) {
     var colorPalette = ColorPalette.random(numberOfColors);
