@@ -2,87 +2,164 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:palette_generator/models/palette_info.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
-import 'package:palette_generator/widgets/palette_info_list_view.dart';
+import 'package:palette_generator/widgets/palette_grid.dart';
+import 'package:palette_generator/widgets/alert_dialog_textfield.dart';
 import 'package:provider/provider.dart';
 
-class PaletteDetailPage extends StatelessWidget {
-  final PaletteInfo paletteInfo;
+enum _DetailsPageActions {
+  share,
+  delete,
+  rename,
+}
 
-  const PaletteDetailPage(this.paletteInfo);
+extension ParseToString on _DetailsPageActions {
+  String valueToCapitalizedString() {
+    String result = this.toString().split('.').last;
+
+    return "${result[0].toUpperCase()}${result.substring(1)}";
+  }
+}
+
+// usar uma sliverappbar e fazer ela ocupar espaço remanescente na tela...
+
+class PaletteDetailPage extends StatefulWidget {
+  final PaletteInfo paletteInfo;
+  final TextEditingController _renameController;
+
+  PaletteDetailPage(this.paletteInfo)
+      : _renameController = TextEditingController(
+          text: paletteInfo.paletteName,
+        );
+
+  @override
+  State<PaletteDetailPage> createState() =>
+      _PaletteDetailPageState(paletteInfo);
+}
+
+class _PaletteDetailPageState extends State<PaletteDetailPage> {
+  late final PaletteStateNotifier _paletteStateNotifier;
+  PaletteInfo _currentPaletteInfo;
+
+  _PaletteDetailPageState(this._currentPaletteInfo) : super();
+
+  @override
+  void initState() {
+    _currentPaletteInfo = widget.paletteInfo;
+    _paletteStateNotifier =
+        Provider.of<PaletteStateNotifier>(context, listen: false);
+
+    super.initState();
+  }
+
+  void _deleteAction(BuildContext context) {
+    _paletteStateNotifier.deletePalette(_currentPaletteInfo.id);
+
+    Navigator.pop(context);
+
+    SnackBar snackBar = SnackBar(
+      content: Text(
+        "Palette \'${_currentPaletteInfo.paletteName}\' was deleted!",
+      ),
+      action: SnackBarAction(
+        label: "UNDO",
+        onPressed: () {
+          _paletteStateNotifier.undo();
+        },
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _renameAction(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialogTextField(
+        title: "What is your palette new name?",
+        textController: widget._renameController,
+        onCompleted: () {
+          setState(
+            () {
+              _currentPaletteInfo = _paletteStateNotifier.updatePalette(
+                _currentPaletteInfo,
+                paletteName: widget._renameController.text,
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final PaletteStateNotifier paletteNotifier =
-        Provider.of<PaletteStateNotifier>(context);
-
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-          ),
+          icon: FaIcon(FontAwesomeIcons.arrowLeft),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Text(
-          paletteInfo.paletteName,
+          _currentPaletteInfo.paletteName,
         ),
         actions: [
           IconButton(
-            icon: FaIcon(
-              FontAwesomeIcons.trashAlt,
-            ),
+            icon: _currentPaletteInfo.isFavorite
+                ? FaIcon(
+                    FontAwesomeIcons.solidHeart,
+                    color: Colors.redAccent,
+                  )
+                : FaIcon(FontAwesomeIcons.heart),
             onPressed: () {
-              paletteNotifier.deletePalette(paletteInfo.id);
-
-              Navigator.pop(context);
-
-              SnackBar snackBar = SnackBar(
-                content: Text(
-                  "Palette \'${paletteInfo.paletteName}\' was deleted!",
-                ),
-                action: SnackBarAction(
-                  label: "UNDO",
-                  onPressed: () {
-                    paletteNotifier.undo();
-                  },
-                ),
+              setState(
+                () {
+                  _currentPaletteInfo = _paletteStateNotifier.updatePalette(
+                    _currentPaletteInfo,
+                    isFavorite: !_currentPaletteInfo.isFavorite,
+                  );
+                },
               );
-
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
           ),
-          IconButton(
-            icon: FaIcon(
-              FontAwesomeIcons.shareAlt,
-            ),
-            onPressed: () {},
+          PopupMenuButton<_DetailsPageActions>(
+            icon: FaIcon(FontAwesomeIcons.ellipsisV),
+            onSelected: (action) {
+              switch (action) {
+                case _DetailsPageActions.delete:
+                  _deleteAction(context);
+                  break;
+                case _DetailsPageActions.share:
+                  // TODO: Handle this case.
+                  break;
+                case _DetailsPageActions.rename:
+                  _renameAction(context);
+                  break;
+              }
+            },
+            itemBuilder: (context) {
+              return _DetailsPageActions.values
+                  .map(
+                    (enumValue) => PopupMenuItem(
+                      value: enumValue,
+                      child: Text(
+                        enumValue.valueToCapitalizedString(),
+                      ),
+                    ),
+                  )
+                  .toList();
+            },
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(
-          top: 20,
-          left: 25,
-          right: 25,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Text(
-                "Number of colors: ${paletteInfo.colors.length}",
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 18,
-                    ),
-              ),
-            ),
-            Expanded(
-              flex: 8,
-              child: PaletteInfoListView(colors: paletteInfo.colors),
-            ),
-          ],
+        child: PaletteGrid(
+          colors: _currentPaletteInfo.colors,
         ),
       ),
     );

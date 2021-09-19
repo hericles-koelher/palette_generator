@@ -84,7 +84,7 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     _sort();
   }
 
-  void updatePalette(
+  PaletteInfo updatePalette(
     PaletteInfo palette, {
     String? paletteName,
     bool? isFavorite,
@@ -98,6 +98,8 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     state.remove(palette);
     state.add(newPalette);
     _sort();
+
+    return newPalette;
   }
 
   void deletePalette(String id) {

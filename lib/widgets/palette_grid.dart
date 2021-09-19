@@ -12,14 +12,29 @@ class PaletteGrid extends StatelessWidget {
         crossAxisCount: 4,
       ),
       physics: PageScrollPhysics(),
-      children: List.generate(
-        colors.length,
-        (index) => Container(
-          decoration: BoxDecoration(
-            color: colors[index],
+      children: List.generate(colors.length, (index) {
+        Color currentColor = colors[index];
+
+        return Tooltip(
+          message:
+              "RGB (${currentColor.red}, ${currentColor.green}, ${currentColor.blue})",
+          triggerMode: TooltipTriggerMode.tap,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Material(
+              shape: CircleBorder(),
+              elevation: 5.0,
+              child: Container(
+                margin: const EdgeInsets.all(5.0),
+                decoration: ShapeDecoration(
+                  shape: CircleBorder(),
+                  color: currentColor,
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

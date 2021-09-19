@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:palette_generator/models/palette_info.dart';
 import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/screens/palette_creation_page.dart';
-import 'package:palette_generator/widgets/palette_list_tile.dart';
+import 'package:palette_generator/widgets/home_palette_list_tile.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,8 +21,7 @@ class HomePage extends StatelessWidget {
             pinned: true,
             floating: true,
             snap: true,
-            expandedHeight: screenHeight / 3,
-            collapsedHeight: screenHeight / 12,
+            expandedHeight: 2 * screenHeight / 5,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: BoxDecoration(
@@ -70,7 +69,7 @@ class HomePage extends StatelessWidget {
                               state.length > 0 ? (state.length * 2) - 1 : 0,
                               (index) {
                                 if (index.isEven)
-                                  return PaletteListTile(
+                                  return HomePaletteListTile(
                                     paletteInfo: state[index ~/ 2],
                                   );
                                 else
@@ -117,21 +116,12 @@ class HomePage extends StatelessWidget {
               ),
               onPressed: () {},
             ),
-            Row(
-              children: [
-                IconButton(
-                  icon: FaIcon(
-                    FontAwesomeIcons.search,
-                  ),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: FaIcon(
-                    FontAwesomeIcons.ellipsisV,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
+            IconButton(
+              icon: FaIcon(
+                // Trocar por um icone melhor
+                FontAwesomeIcons.sortAlphaDown,
+              ),
+              onPressed: () {},
             ),
           ],
         ),

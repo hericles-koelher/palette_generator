@@ -5,10 +5,10 @@ import 'package:palette_generator/models/palette_state_notifier.dart';
 import 'package:palette_generator/screens/palette_detail_page.dart';
 import 'package:provider/provider.dart';
 
-class PaletteListTile extends StatelessWidget {
+class HomePaletteListTile extends StatelessWidget {
   final PaletteInfo paletteInfo;
 
-  const PaletteListTile({Key? key, required this.paletteInfo})
+  const HomePaletteListTile({Key? key, required this.paletteInfo})
       : super(key: key);
 
   @override
