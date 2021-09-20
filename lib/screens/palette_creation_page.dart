@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:palette_generator/models/color_list_state_notifier.dart';
-import 'package:palette_generator/models/palette_state_notifier.dart';
-import 'package:palette_generator/models/slider_state_notifier.dart';
+import 'package:palette_generator/models.dart';
 import 'package:palette_generator/widgets/palette_grid.dart';
 import 'package:palette_generator/widgets/number_of_colors_slider.dart';
 import 'package:palette_generator/widgets/alert_dialog_textfield.dart';
@@ -50,7 +48,7 @@ class PaletteCreationPage extends StatelessWidget {
                   textController: _textEditingController,
                   dismissOnComplete: false,
                   onCompleted: () {
-                    List<Color> colors = colorListNotifier.state;
+                    List<int> colors = colorListNotifier.state;
 
                     paletteNotifier.savePalette(
                       paletteName: _textEditingController.text,
@@ -81,7 +79,7 @@ class PaletteCreationPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
-              child: StateNotifierBuilder<List<Color>>(
+              child: StateNotifierBuilder<List<int>>(
                 stateNotifier: Provider.of<ColorListStateNotifier>(context),
                 builder: (context, state, child) {
                   return PaletteGrid(

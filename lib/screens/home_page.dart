@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:palette_generator/models/palette_info.dart';
-import 'package:palette_generator/models/palette_state_notifier.dart';
+import 'package:palette_generator/models.dart';
 import 'package:palette_generator/screens/palette_creation_page.dart';
 import 'package:palette_generator/widgets/home_palette_list_tile.dart';
 import 'package:provider/provider.dart';

@@ -1,11 +1,25 @@
-import 'package:flutter/painting.dart';
+import 'package:hive/hive.dart';
 
+part 'palette_info.g.dart';
+
+@HiveType(typeId: 0)
 class PaletteInfo {
+  @HiveField(0)
   final String paletteName;
+
+  @HiveField(1)
   final String id;
-  final List<Color> colors;
+
+  @HiveField(2)
+  final List<int> colors;
+
+  @HiveField(3)
   final DateTime creationDate;
+
+  @HiveField(4)
   final DateTime lastUpdate;
+
+  @HiveField(5)
   final bool isFavorite;
 
   PaletteInfo({
@@ -17,29 +31,10 @@ class PaletteInfo {
     this.isFavorite = false,
   });
 
-  PaletteInfo.fromJson(Map<String, dynamic> json)
-      : paletteName = json["palette_name"],
-        id = json["id"],
-        colors = (json["colors"] as List)
-            .map((colorValue) => Color(colorValue))
-            .toList(),
-        isFavorite = json["is_favorite"],
-        creationDate = DateTime.parse(json["creation_date"]),
-        lastUpdate = DateTime.parse(json["last_update"]);
-
-  Map<String, dynamic> toJson() => {
-        "palette_name": paletteName,
-        "id": id,
-        "colors": _colorsToJson(),
-        "is_favorite": isFavorite,
-        "creation_date": creationDate.toString(),
-        "last_update": lastUpdate.toString(),
-      };
-
   PaletteInfo copyWith({
     String? paletteName,
     String? id,
-    List<Color>? colors,
+    List<int>? colors,
     bool? isFavorite,
     DateTime? creationDate,
     DateTime? lastUpdate,
@@ -53,6 +48,4 @@ class PaletteInfo {
       lastUpdate: lastUpdate ?? this.lastUpdate,
     );
   }
-
-  List<int> _colorsToJson() => colors.map((color) => color.value).toList();
 }

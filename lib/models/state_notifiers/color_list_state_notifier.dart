@@ -1,20 +1,19 @@
-import 'package:flutter/painting.dart';
 import 'package:palette/palette.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-class ColorListStateNotifier extends StateNotifier<List<Color>>
+class ColorListStateNotifier extends StateNotifier<List<int>>
     with LocatorMixin {
-  ColorListStateNotifier([List<Color> state = const []]) : super(state);
+  ColorListStateNotifier([List<int> state = const []]) : super(state);
 
   void createColorList({required int numberOfColors}) {
     var colorPalette = ColorPalette.random(numberOfColors);
 
     state = colorPalette.colors
-        .map((colorModel) => _colorModelToColor(colorModel))
+        .map((colorModel) => _colorToRGBHex(colorModel))
         .toList();
   }
 
-  static Color _colorModelToColor(ColorModel cm) {
+  static int _colorToRGBHex(ColorModel cm) {
     int red, blue, green, alpha;
 
     RgbColor rgbColor = cm.toRgbColor();
@@ -24,6 +23,9 @@ class ColorListStateNotifier extends StateNotifier<List<Color>>
     green = rgbColor.green;
     alpha = rgbColor.alpha;
 
-    return Color.fromARGB(alpha, red, green, blue);
+    return int.parse(
+      "${alpha.toRadixString(16)}${red.toRadixString(16)}${blue.toRadixString(16)}${green.toRadixString(16)}",
+      radix: 16,
+    );
   }
 }

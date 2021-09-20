@@ -1,48 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:palette_generator/models/palette_info.dart';
+import 'package:palette_generator/models/sort_by_palette.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:undo/undo.dart';
 import 'package:uuid/uuid.dart';
 
-enum SortByPalette {
-  name,
-  creationDate,
-  lastUpdate,
-}
-
 class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     with LocatorMixin {
   PaletteInfo? _lastDeleted;
-  SortByPalette _sortByPalette = SortByPalette.lastUpdate;
+  SortByPalette _sortByPalette;
   ChangeStack _changes = ChangeStack(limit: 1);
   Uuid _uuid = Uuid();
 
-  PaletteStateNotifier(List<PaletteInfo> state)
+  PaletteStateNotifier({required List<PaletteInfo> palettes})
       : _sortByPalette = SortByPalette.name,
-        super(state);
-
-  PaletteStateNotifier.fromJson(Map<String, dynamic> json)
-      : _sortByPalette = _sortByPaletteFromString(json["sort_by_palette"]),
-        super(
-          List.generate(
-            json["number_of_palettes"],
-            (index) => PaletteInfo.fromJson(json["palettes"][index]),
-          ),
-        );
-
-  Map<String, dynamic> toJson() => {
-        "palettes": state,
-        "number_of_palettes": state.length,
-        "sort_by_palette": _sortByPalette.toString(),
-      };
-
-  static SortByPalette _sortByPaletteFromString(String str) {
-    return SortByPalette.values.firstWhere(
-      (element) => element.toString() == str,
-      orElse: () => SortByPalette.lastUpdate,
-    );
-  }
+        super(palettes);
 
   void orderBy(SortByPalette option) {
     _sortByPalette = option;
@@ -67,7 +40,7 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     state = [...state]..sort(callback);
   }
 
-  void savePalette({required String paletteName, required List<Color> colors}) {
+  void savePalette({required String paletteName, required List<int> colors}) {
     var now = DateTime.now();
     String id = _uuid.v4();
 

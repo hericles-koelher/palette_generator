@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaletteGrid extends StatelessWidget {
-  final List<Color> colors;
+  final List<int> colors;
   final EdgeInsetsGeometry? padding;
 
   const PaletteGrid({
@@ -19,7 +19,7 @@ class PaletteGrid extends StatelessWidget {
       ),
       physics: PageScrollPhysics(),
       children: List.generate(colors.length, (index) {
-        Color currentColor = colors[index];
+        Color currentColor = Color(colors[index]);
 
         return Tooltip(
           message:
