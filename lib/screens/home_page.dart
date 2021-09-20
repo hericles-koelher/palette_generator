@@ -116,10 +116,11 @@ class HomePage extends StatelessWidget {
               ),
               onPressed: () {},
             ),
+            // TODO: implementar popup para escolher o tipo de organização...
             IconButton(
               icon: FaIcon(
                 // Trocar por um icone melhor
-                FontAwesomeIcons.sortAlphaDown,
+                FontAwesomeIcons.sortAmountDown,
               ),
               onPressed: () {},
             ),

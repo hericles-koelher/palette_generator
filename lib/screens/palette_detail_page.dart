@@ -143,6 +143,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
               return _DetailsPageActions.values
                   .map(
                     (enumValue) => PopupMenuItem(
+                      padding: EdgeInsets.only(left: 15, right: 40),
                       value: enumValue,
                       child: Text(
                         enumValue.valueToCapitalizedString(),
@@ -154,12 +155,11 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
+      body: PaletteGrid(
+        colors: _currentPaletteInfo.colors,
+        padding: EdgeInsets.symmetric(
           horizontal: 20,
-        ),
-        child: PaletteGrid(
-          colors: _currentPaletteInfo.colors,
+          vertical: 25,
         ),
       ),
     );

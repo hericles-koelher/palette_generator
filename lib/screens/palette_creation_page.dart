@@ -84,7 +84,10 @@ class PaletteCreationPage extends StatelessWidget {
               child: StateNotifierBuilder<List<Color>>(
                 stateNotifier: Provider.of<ColorListStateNotifier>(context),
                 builder: (context, state, child) {
-                  return PaletteGrid(colors: state);
+                  return PaletteGrid(
+                    colors: state,
+                    padding: EdgeInsets.only(top: 25),
+                  );
                 },
               ),
             ),
