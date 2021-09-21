@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:palette_generator/models.dart';
-import 'package:palette_generator/screens/palette_creation_page.dart';
-import 'package:palette_generator/widgets/home_palette_list_tile.dart';
 import 'package:provider/provider.dart';
+import '../models.dart';
+import '../screens.dart';
+import '../widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

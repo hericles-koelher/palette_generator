@@ -7,8 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:palette_generator/main.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

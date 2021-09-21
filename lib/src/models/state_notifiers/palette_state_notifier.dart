@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:palette_generator/models/palette_info.dart';
-import 'package:palette_generator/models/sort_by_palette.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:undo/undo.dart';
 import 'package:uuid/uuid.dart';
+import '../../models.dart';
 
 class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     with LocatorMixin {

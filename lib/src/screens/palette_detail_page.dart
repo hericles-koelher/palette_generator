@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:palette_generator/models.dart';
-import 'package:palette_generator/widgets/palette_grid.dart';
-import 'package:palette_generator/widgets/alert_dialog_textfield.dart';
 import 'package:provider/provider.dart';
+import '../models.dart';
+import '../widgets.dart';
 
 enum _DetailsPageActions {
   share,

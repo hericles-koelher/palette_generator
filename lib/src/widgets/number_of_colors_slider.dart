@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
-import 'package:palette_generator/models.dart';
-import 'package:palette_generator/utils/constants.dart';
+import 'package:palette_generator/src/constants.dart';
 import 'package:provider/provider.dart';
+import '../models.dart';
 
 class NumberOfColorsSlider extends StatelessWidget {
   const NumberOfColorsSlider({Key? key}) : super(key: key);

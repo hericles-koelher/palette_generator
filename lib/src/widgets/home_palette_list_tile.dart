@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:palette_generator/models/palette_info.dart';
-import 'package:palette_generator/models.dart';
-import 'package:palette_generator/screens/palette_detail_page.dart';
 import 'package:provider/provider.dart';
+import '../models.dart';
+import '../screens.dart';
 
 class HomePaletteListTile extends StatelessWidget {
   final PaletteInfo paletteInfo;

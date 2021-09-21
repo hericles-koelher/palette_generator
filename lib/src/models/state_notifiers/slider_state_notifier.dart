@@ -1,4 +1,4 @@
-import 'package:palette_generator/utils/constants.dart';
+import 'package:palette_generator/src/constants.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 class SliderStateNotifier extends StateNotifier<int> with LocatorMixin {

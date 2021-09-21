@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:palette_generator/models/sort_by_palette.dart';
+import '../models.dart';
 
 part 'configurations.g.dart';
 

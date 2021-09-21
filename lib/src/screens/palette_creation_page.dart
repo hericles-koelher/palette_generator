@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:palette_generator/models.dart';
-import 'package:palette_generator/widgets/palette_grid.dart';
-import 'package:palette_generator/widgets/number_of_colors_slider.dart';
-import 'package:palette_generator/widgets/alert_dialog_textfield.dart';
 import 'package:provider/provider.dart';
+import '../models.dart';
+import '../widgets.dart';
 
 class PaletteCreationPage extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
