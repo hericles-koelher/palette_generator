@@ -12,13 +12,25 @@ class Configurations {
   @HiveField(1, defaultValue: 32)
   final int maxColors;
 
-  @HiveField(2, defaultValue: SortByPalette.lastUpdate)
+  @HiveField(2)
   final SortByPalette sortByPalette;
 
-  Configurations({
+  const Configurations({
     required this.minColors,
     required this.maxColors,
     required this.sortByPalette,
   })  : assert(minColors > 0),
         assert(maxColors > minColors && maxColors <= 128);
+
+  Configurations copyWith({
+    int? minColors,
+    int? maxColors,
+    SortByPalette? sortByPalette,
+  }) {
+    return Configurations(
+      minColors: minColors ?? this.minColors,
+      maxColors: maxColors ?? this.maxColors,
+      sortByPalette: sortByPalette ?? this.sortByPalette,
+    );
+  }
 }

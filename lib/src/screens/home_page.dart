@@ -7,125 +7,112 @@ import '../screens.dart';
 import '../widgets.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            floating: true,
-            snap: true,
-            expandedHeight: 2 * screenHeight / 5,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Colors.lime,
-                      Colors.yellow[400]!,
-                      // Colors.orange,
-                      Colors.red,
-                      // Colors.blue,
-                      // Colors.blue[700]!,
-                      // Colors.deepPurple,
-                    ],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              floating: true,
+              snap: true,
+              expandedHeight: 2 * screenHeight / 5,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        Colors.lime,
+                        Colors.yellow[400]!,
+                        // Colors.orange,
+                        Colors.red,
+                        // Colors.blue,
+                        // Colors.blue[700]!,
+                        // Colors.deepPurple,
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              centerTitle: true,
-              title: Text(
-                "PALETTE GENERATOR",
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Text(
-                        "Saved Palettes",
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: StateNotifierBuilder<List<PaletteInfo>>(
-                        builder: (context, state, child) {
-                          return Column(
-                            children: List.generate(
-                              state.length > 0 ? (state.length * 2) - 1 : 0,
-                              (index) {
-                                if (index.isEven)
-                                  return HomePaletteListTile(
-                                    paletteInfo: state[index ~/ 2],
-                                  );
-                                else
-                                  return Divider();
-                              },
-                            ),
-                          );
-                        },
-                        stateNotifier:
-                            Provider.of<PaletteStateNotifier>(context),
-                      ),
-                    ),
-                  ],
+                centerTitle: true,
+                title: Text(
+                  "PALETTE GENERATOR",
                 ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: FaIcon(
-          FontAwesomeIcons.plus,
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PaletteCreationPage(),
-            ),
-          );
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).primaryColor,
-        shape: CircularNotchedRectangle(),
-        elevation: 2.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: FaIcon(
-                FontAwesomeIcons.bars,
               ),
-              onPressed: () {},
             ),
-            // TODO: implementar popup para escolher o tipo de organização...
-            IconButton(
-              icon: FaIcon(
-                // Trocar por um icone melhor
-                FontAwesomeIcons.sortAmountDown,
+            SliverFillRemaining(
+              child: Column(
+                children: [
+                  // TODO: transferir essa tabbar para ficar junto ao sliverappbar.
+                  // conferir: https://medium.com/@diegoveloper/flutter-collapsing-toolbar-sliver-app-bar-14b858e87abe
+                  TabBar(
+                    indicatorColor: Colors.deepPurple,
+                    labelColor: Theme.of(context).primaryColor,
+                    unselectedLabelColor: Colors.grey[600],
+                    labelStyle: Theme.of(context).textTheme.bodyText1,
+                    tabs: [
+                      Tab(
+                        text: "All",
+                      ),
+                      Tab(
+                        text: "Favorites",
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        _listAllPalettes(context),
+                        Container(),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              onPressed: () {},
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          child: FaIcon(
+            FontAwesomeIcons.plus,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PaletteCreationPage(),
+              ),
+            );
+          },
+        ),
+        drawer: ApplicationDrawer(),
       ),
+    );
+  }
+
+  Widget _listAllPalettes(BuildContext context) {
+    return StateNotifierBuilder<List<PaletteInfo>>(
+      builder: (context, state, child) {
+        return Column(
+          children: List.generate(
+            state.length > 0 ? (state.length * 2) - 1 : 0,
+            (index) {
+              if (index.isEven)
+                return HomePaletteListTile(
+                  paletteInfo: state[index ~/ 2],
+                );
+              else
+                return Divider();
+            },
+          ),
+        );
+      },
+      stateNotifier: Provider.of<PaletteStateNotifier>(context),
     );
   }
 }

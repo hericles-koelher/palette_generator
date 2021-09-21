@@ -22,12 +22,11 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
   late final PaletteStateNotifier _paletteStateNotifier;
   late final ColorListStateNotifier _colorListStateNotifier;
   late final SliderStateNotifier _sliderStateNotifier;
+  late final ConfigurationsStateNotifier _configurationsStateNotifier;
 
   @override
   void initState() {
     WidgetsBinding.instance!.addObserver(this);
-
-    widget.paletteBox.clear();
 
     List<PaletteInfo> paletteList = widget.paletteBox
         .get(
@@ -36,7 +35,18 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
         )
         .cast<PaletteInfo>();
 
-    _paletteStateNotifier = PaletteStateNotifier(palettes: paletteList);
+    Configurations config = widget.paletteBox.get(
+      kConfigs,
+      defaultValue: kDefaultConfigurations,
+    );
+
+    _configurationsStateNotifier =
+        ConfigurationsStateNotifier(initialState: config);
+
+    _paletteStateNotifier = PaletteStateNotifier(
+      palettes: paletteList,
+      sortBy: config.sortByPalette,
+    );
 
     _sliderStateNotifier = SliderStateNotifier();
 
@@ -59,14 +69,17 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
     _paletteStateNotifier.dispose();
     _colorListStateNotifier.dispose();
     _sliderStateNotifier.dispose();
+    _configurationsStateNotifier.dispose();
 
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused)
+    if (state == AppLifecycleState.paused) {
       widget.paletteBox.put(kPaletteList, _paletteStateNotifier.state);
+      // TODO: salvar configurações aqui? ou salvar durante alterações na página de config?
+    }
 
     super.didChangeAppLifecycleState(state);
   }
@@ -78,6 +91,7 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
         StateNotifierProvider.value(value: _paletteStateNotifier),
         StateNotifierProvider.value(value: _colorListStateNotifier),
         StateNotifierProvider.value(value: _sliderStateNotifier),
+        StateNotifierProvider.value(value: _configurationsStateNotifier),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

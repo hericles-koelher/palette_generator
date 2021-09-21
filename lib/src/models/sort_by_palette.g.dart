@@ -17,8 +17,6 @@ class SortByPaletteAdapter extends TypeAdapter<SortByPalette> {
         return SortByPalette.name;
       case 1:
         return SortByPalette.creationDate;
-      case 2:
-        return SortByPalette.lastUpdate;
       default:
         return SortByPalette.name;
     }
@@ -32,9 +30,6 @@ class SortByPaletteAdapter extends TypeAdapter<SortByPalette> {
         break;
       case SortByPalette.creationDate:
         writer.writeByte(1);
-        break;
-      case SortByPalette.lastUpdate:
-        writer.writeByte(2);
         break;
     }
   }

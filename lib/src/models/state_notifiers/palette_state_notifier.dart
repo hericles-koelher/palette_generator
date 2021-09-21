@@ -10,8 +10,9 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
   ChangeStack _changes = ChangeStack(limit: 1);
   Uuid _uuid = Uuid();
 
-  PaletteStateNotifier({required List<PaletteInfo> palettes})
-      : _sortByPalette = SortByPalette.name,
+  PaletteStateNotifier(
+      {required List<PaletteInfo> palettes, required SortByPalette sortBy})
+      : _sortByPalette = sortBy,
         super(palettes);
 
   void orderBy(SortByPalette option) {
@@ -28,9 +29,6 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
         break;
       case SortByPalette.creationDate:
         callback = (pA, pB) => pA.creationDate.compareTo(pB.creationDate);
-        break;
-      case SortByPalette.lastUpdate:
-        callback = (pA, pB) => pA.lastUpdate.compareTo(pB.lastUpdate);
         break;
     }
 

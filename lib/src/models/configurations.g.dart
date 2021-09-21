@@ -19,9 +19,7 @@ class ConfigurationsAdapter extends TypeAdapter<Configurations> {
     return Configurations(
       minColors: fields[0] == null ? 4 : fields[0] as int,
       maxColors: fields[1] == null ? 32 : fields[1] as int,
-      sortByPalette: fields[2] == null
-          ? SortByPalette.lastUpdate
-          : fields[2] as SortByPalette,
+      sortByPalette: fields[2] as SortByPalette,
     );
   }
 

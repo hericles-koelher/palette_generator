@@ -9,7 +9,4 @@ enum SortByPalette {
 
   @HiveField(1)
   creationDate,
-
-  @HiveField(2)
-  lastUpdate,
 }

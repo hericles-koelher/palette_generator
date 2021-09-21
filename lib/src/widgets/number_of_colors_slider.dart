@@ -35,8 +35,8 @@ class NumberOfColorsSlider extends StatelessWidget {
             Slider(
               label: state.toString(),
               value: state.toDouble(),
-              min: kMinColorsPalette.toDouble(),
-              max: kMaxColorsPalette.toDouble(),
+              min: kDefaultMinColors.toDouble(),
+              max: kDefaultMaxColors.toDouble(),
               // divisions: 32,
               onChanged: (value) {
                 sliderNotifier.change(value.toInt());
