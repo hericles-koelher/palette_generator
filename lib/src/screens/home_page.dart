@@ -9,73 +9,55 @@ import '../widgets.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              expandedHeight: 2 * screenHeight / 5,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Colors.lime,
-                        Colors.yellow[400]!,
-                        // Colors.orange,
-                        Colors.red,
-                        // Colors.blue,
-                        // Colors.blue[700]!,
-                        // Colors.deepPurple,
-                      ],
-                    ),
+        body: NestedScrollView(
+          body: Builder(
+            builder: (context) {
+              return CustomScrollView(
+                slivers: [
+                  SliverOverlapInjector(
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context),
                   ),
-                ),
-                centerTitle: true,
-                title: Text(
-                  "PALETTE GENERATOR",
-                ),
-              ),
-            ),
-            SliverFillRemaining(
-              child: Column(
-                children: [
-                  // TODO: transferir essa tabbar para ficar junto ao sliverappbar.
-                  // conferir: https://medium.com/@diegoveloper/flutter-collapsing-toolbar-sliver-app-bar-14b858e87abe
-                  TabBar(
-                    indicatorColor: Colors.deepPurple,
-                    labelColor: Theme.of(context).primaryColor,
-                    unselectedLabelColor: Colors.grey[600],
-                    labelStyle: Theme.of(context).textTheme.bodyText1,
-                    tabs: [
-                      Tab(
-                        text: "All",
-                      ),
-                      Tab(
-                        text: "Favorites",
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: TabBarView(
+                  SliverFillRemaining(
+                    child: Column(
                       children: [
-                        _listAllPalettes(context),
-                        Container(),
+                        TabBar(
+                          tabs: [
+                            Tab(
+                              text: "All",
+                            ),
+                            Tab(
+                              text: "Favorites",
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            children: [
+                              _listAllPalettes(context),
+                              _listFavoritePalettes(context),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
+              );
+            },
+          ),
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: _header(context),
               ),
-            ),
-          ],
+            ];
+          },
         ),
         floatingActionButton: FloatingActionButton(
           child: FaIcon(
@@ -95,22 +77,78 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _header(context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double barHeight = 2 * screenHeight / 5;
+
+    return SliverAppBar(
+      pinned: true,
+      expandedHeight: barHeight,
+      collapsedHeight: barHeight,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.lime,
+                Colors.yellow[400]!,
+                // Colors.orange,
+                Colors.red,
+                // Colors.blue,
+                // Colors.blue[700]!,
+                // Colors.deepPurple,
+              ],
+            ),
+          ),
+        ),
+        centerTitle: true,
+        title: Text(
+          "PALETTE GENERATOR",
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _listPalettes(List<PaletteInfo> palettes) {
+    return ListView(
+      padding: EdgeInsets.only(top: 10),
+      physics: BouncingScrollPhysics(),
+      children: List.generate(
+        palettes.length > 0 ? (palettes.length * 2) - 1 : 0,
+        (index) {
+          if (index.isEven)
+            return HomePaletteListTile(
+              paletteInfo: palettes[index ~/ 2],
+            );
+          else
+            return Divider();
+        },
+      ),
+    );
+  }
+
   Widget _listAllPalettes(BuildContext context) {
     return StateNotifierBuilder<List<PaletteInfo>>(
       builder: (context, state, child) {
-        return Column(
-          children: List.generate(
-            state.length > 0 ? (state.length * 2) - 1 : 0,
-            (index) {
-              if (index.isEven)
-                return HomePaletteListTile(
-                  paletteInfo: state[index ~/ 2],
-                );
-              else
-                return Divider();
-            },
-          ),
-        );
+        return _listPalettes(state);
+      },
+      stateNotifier: Provider.of<PaletteStateNotifier>(context),
+    );
+  }
+
+  Widget _listFavoritePalettes(BuildContext context) {
+    return StateNotifierBuilder<List<PaletteInfo>>(
+      builder: (context, state, child) {
+        List<PaletteInfo> favorites =
+            state.where((palette) => palette.isFavorite).toList();
+
+        return _listPalettes(favorites);
       },
       stateNotifier: Provider.of<PaletteStateNotifier>(context),
     );

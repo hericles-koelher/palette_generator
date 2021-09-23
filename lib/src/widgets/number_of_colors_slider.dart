@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
-import 'package:palette_generator/src/constants.dart';
 import 'package:provider/provider.dart';
 import '../models.dart';
 
@@ -10,6 +9,10 @@ class NumberOfColorsSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sliderNotifier = Provider.of<SliderStateNotifier>(context);
+    final configNotifier = Provider.of<ConfigurationsStateNotifier>(
+      context,
+      listen: false,
+    );
 
     return StateNotifierBuilder<int>(
       stateNotifier: sliderNotifier,
@@ -35,9 +38,8 @@ class NumberOfColorsSlider extends StatelessWidget {
             Slider(
               label: state.toString(),
               value: state.toDouble(),
-              min: kDefaultMinColors.toDouble(),
-              max: kDefaultMaxColors.toDouble(),
-              // divisions: 32,
+              min: configNotifier.state.minColors.toDouble(),
+              max: configNotifier.state.maxColors.toDouble(),
               onChanged: (value) {
                 sliderNotifier.change(value.toInt());
               },

@@ -54,19 +54,19 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
 
     Navigator.pop(context);
 
-    SnackBar snackBar = SnackBar(
-      content: Text(
-        "Palette \'${_currentPaletteInfo.paletteName}\' was deleted!",
-      ),
-      action: SnackBarAction(
-        label: "UNDO",
-        onPressed: () {
-          _paletteStateNotifier.undo();
-        },
-      ),
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // SnackBar snackBar = SnackBar(
+    //   content: Text(
+    //     "Palette \'${_currentPaletteInfo.paletteName}\' was deleted!",
+    //   ),
+    //   action: SnackBarAction(
+    //     label: "UNDO",
+    //     onPressed: () {
+    //       _paletteStateNotifier.undo();
+    //     },
+    //   ),
+    // );
+    //
+    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _renameAction(BuildContext context) {
@@ -130,7 +130,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
                   _deleteAction(context);
                   break;
                 case _DetailsPageActions.share:
-                  // TODO: Handle this case.
+                  // TODO: Arrumar isso aqui.
                   break;
                 case _DetailsPageActions.rename:
                   _renameAction(context);

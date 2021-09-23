@@ -3,7 +3,6 @@ import '../models.dart';
 
 part 'configurations.g.dart';
 
-// TODO: implementar state notifier dessa classe
 @HiveType(typeId: 2)
 class Configurations {
   @HiveField(0, defaultValue: 4)

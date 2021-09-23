@@ -24,11 +24,20 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     int Function(PaletteInfo, PaletteInfo)? callback;
 
     switch (_sortByPalette) {
-      case SortByPalette.name:
+      case SortByPalette.name_ascending:
         callback = (pA, pB) => pA.paletteName.compareTo(pB.paletteName);
         break;
-      case SortByPalette.creationDate:
+      case SortByPalette.name_descending:
+        callback = (pA, pB) => pB.paletteName.compareTo(pA.paletteName);
+        break;
+      case SortByPalette.creation_ascending:
         callback = (pA, pB) => pA.creationDate.compareTo(pB.creationDate);
+        break;
+      case SortByPalette.creation_descending:
+        callback = (pA, pB) => pB.creationDate.compareTo(pA.creationDate);
+        break;
+      case SortByPalette.last_update:
+        callback = (pA, pB) => pB.lastUpdate.compareTo(pA.lastUpdate);
         break;
     }
 

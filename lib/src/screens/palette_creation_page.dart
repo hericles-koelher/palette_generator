@@ -55,13 +55,13 @@ class PaletteCreationPage extends StatelessWidget {
 
                     Navigator.popUntil(context, (route) => route.isFirst);
 
-                    SnackBar snackBar = SnackBar(
-                      content: Text(
-                        "Palette \'${_textEditingController.text}\' was saved!",
-                      ),
-                    );
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    // SnackBar snackBar = SnackBar(
+                    //   content: Text(
+                    //     "Palette \'${_textEditingController.text}\' was saved!",
+                    //   ),
+                    // );
+                    //
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                 ),
               );
@@ -104,9 +104,6 @@ class PaletteCreationPage extends StatelessWidget {
                     },
                     child: Text(
                       "GENERATE",
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: Colors.white,
-                          ),
                     ),
                   ),
                 ],

@@ -10,60 +10,82 @@ class ApplicationDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-            ),
-            child: Container(
-              width: double.maxFinite,
-              child: Column(
-                children: [
-                  // TODO: arrumar essa porra aqui
-                  Expanded(
-                    child: Text("Palette Generator"),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      child: Image.asset("images/paint-palette.png"),
+          Expanded(
+            flex: 2,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Container(
+                width: double.maxFinite,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // TODO: arrumar essa porra aqui
+                    Flexible(
+                      child: Text(
+                        "Palette Generator",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      flex: 2,
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        child: Image.asset("images/paint-palette.png"),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          ListTile(
-            title: Text("Home"),
-            leading: FaIcon(FontAwesomeIcons.home),
-            onTap: () {
-              Navigator.popUntil(context, (route) => route.isFirst);
-            },
+          Flexible(
+            child: ListTile(
+              title: Text("Home"),
+              leading: FaIcon(FontAwesomeIcons.home),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
+              },
+            ),
           ),
-          ListTile(
-            title: Text("Settings"),
-            leading: FaIcon(FontAwesomeIcons.cog),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ConfigScreen(),
-                ),
-              );
-            },
+          Flexible(
+            child: ListTile(
+              title: Text("Settings"),
+              leading: FaIcon(FontAwesomeIcons.cog),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ConfigScreen(),
+                  ),
+                );
+              },
+            ),
           ),
-          ListTile(
-            title: Text("About"),
-            leading: FaIcon(FontAwesomeIcons.infoCircle),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AboutScreen(),
-                ),
-              );
-            },
+          Flexible(
+            child: ListTile(
+              title: Text("About"),
+              leading: FaIcon(FontAwesomeIcons.infoCircle),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutScreen(),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
