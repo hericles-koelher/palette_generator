@@ -1,6 +1,6 @@
-# palette_generator
+# Palette Generator
 
-A new Flutter project.
+A simple color palette generator made for study Flutter, Provider and State Notifier.
 
 ## Getting Started
 

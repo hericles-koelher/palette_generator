@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
 
   Widget _header(context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double barHeight = 2 * screenHeight / 5;
+    final double barHeight = 0.4 * screenHeight;
 
     return SliverAppBar(
       pinned: true,
@@ -95,11 +95,9 @@ class HomePage extends StatelessWidget {
               colors: [
                 Colors.lime,
                 Colors.yellow[400]!,
-                // Colors.orange,
+                Colors.orangeAccent,
                 Colors.red,
-                // Colors.blue,
-                // Colors.blue[700]!,
-                // Colors.deepPurple,
+                Colors.deepPurple,
               ],
             ),
           ),

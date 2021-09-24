@@ -21,7 +21,6 @@ class ApplicationDrawer extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // TODO: arrumar essa porra aqui
                     Flexible(
                       child: Text(
                         "Palette Generator",
