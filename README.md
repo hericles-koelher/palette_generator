@@ -11,7 +11,7 @@ Here are some screenshots:
 </p>
 
 <p float="left">
+  <img src="images/readme_images/creation_page.png" width="270" height="570">
   <img src="images/readme_images/name_dialog.png" width="270" height="570">
   <img src="images/readme_images/palette_page.png" width="270" height="570">
-  <img src="images/readme_images/creation_page.png" width="270" height="570">
 </p>
