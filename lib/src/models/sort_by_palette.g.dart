@@ -18,11 +18,9 @@ class SortByPaletteAdapter extends TypeAdapter<SortByPalette> {
       case 1:
         return SortByPalette.name_descending;
       case 2:
-        return SortByPalette.creation_ascending;
+        return SortByPalette.creation_oldest;
       case 3:
-        return SortByPalette.creation_descending;
-      case 4:
-        return SortByPalette.last_update;
+        return SortByPalette.creation_newest;
       default:
         return SortByPalette.name_ascending;
     }
@@ -37,14 +35,11 @@ class SortByPaletteAdapter extends TypeAdapter<SortByPalette> {
       case SortByPalette.name_descending:
         writer.writeByte(1);
         break;
-      case SortByPalette.creation_ascending:
+      case SortByPalette.creation_oldest:
         writer.writeByte(2);
         break;
-      case SortByPalette.creation_descending:
+      case SortByPalette.creation_newest:
         writer.writeByte(3);
-        break;
-      case SortByPalette.last_update:
-        writer.writeByte(4);
         break;
     }
   }

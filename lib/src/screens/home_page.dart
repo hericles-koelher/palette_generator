@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -115,28 +116,66 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _listPalettes(List<PaletteInfo> palettes) {
-    return ListView(
-      padding: EdgeInsets.only(top: 10),
-      physics: BouncingScrollPhysics(),
-      children: List.generate(
-        palettes.length > 0 ? (palettes.length * 2) - 1 : 0,
-        (index) {
-          if (index.isEven)
-            return HomePaletteListTile(
-              paletteInfo: palettes[index ~/ 2],
-            );
-          else
-            return Divider();
-        },
-      ),
+  Widget _listPalettes(BuildContext context, List<PaletteInfo> palettes) {
+    final paletteNotifier =
+        Provider.of<PaletteStateNotifier>(context, listen: false);
+
+    return ListView.separated(
+      itemCount: palettes.length,
+      padding: const EdgeInsets.only(top: 10),
+      physics: const BouncingScrollPhysics(),
+      separatorBuilder: (_, __) => const Divider(),
+      itemBuilder: (_, index) {
+        String paletteId = palettes[index].id;
+
+        final palette = HomePaletteListTile(
+          paletteInfo: palettes[index],
+        );
+
+        void Function() deleteAndShowSnackBar = () {
+          paletteNotifier.deletePalette(paletteId);
+
+          final SnackBar snackBar = SnackBar(
+            content: Text(
+                "Palette \'${palette.paletteInfo.paletteName}\' was deleted!"),
+            action: SnackBarAction(
+              label: "UNDO",
+              onPressed: () {
+                paletteNotifier.undo();
+              },
+            ),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        };
+
+        return Slidable(
+          actionPane: SlidableScrollActionPane(),
+          actionExtentRatio: 0.4,
+          key: Key(paletteId),
+          dismissal: SlidableDismissal(
+            child: SlidableDrawerDismissal(),
+            onDismissed: (type) {
+              deleteAndShowSnackBar();
+            },
+          ),
+          actions: [
+            IconSlideAction(
+              color: Theme.of(context).primaryColor,
+              icon: FontAwesomeIcons.trashAlt,
+              onTap: deleteAndShowSnackBar,
+            ),
+          ],
+          child: palette,
+        );
+      },
     );
   }
 
   Widget _listAllPalettes(BuildContext context) {
     return StateNotifierBuilder<List<PaletteInfo>>(
       builder: (context, state, child) {
-        return _listPalettes(state);
+        return _listPalettes(context, state);
       },
       stateNotifier: Provider.of<PaletteStateNotifier>(context),
     );
@@ -148,7 +187,7 @@ class HomePage extends StatelessWidget {
         List<PaletteInfo> favorites =
             state.where((palette) => palette.isFavorite).toList();
 
-        return _listPalettes(favorites);
+        return _listPalettes(context, favorites);
       },
       stateNotifier: Provider.of<PaletteStateNotifier>(context),
     );

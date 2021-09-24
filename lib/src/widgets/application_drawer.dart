@@ -67,7 +67,7 @@ class ApplicationDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ConfigScreen(),
+                    builder: (context) => SettingsScreen(),
                   ),
                 );
               },

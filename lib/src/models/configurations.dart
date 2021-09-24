@@ -5,10 +5,10 @@ part 'configurations.g.dart';
 
 @HiveType(typeId: 2)
 class Configurations {
-  @HiveField(0, defaultValue: 4)
+  @HiveField(0)
   final int minColors;
 
-  @HiveField(1, defaultValue: 32)
+  @HiveField(1)
   final int maxColors;
 
   @HiveField(2)

@@ -11,11 +11,8 @@ enum SortByPalette {
   name_descending,
 
   @HiveField(2)
-  creation_ascending,
+  creation_oldest,
 
   @HiveField(3)
-  creation_descending,
-
-  @HiveField(4)
-  last_update,
+  creation_newest,
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets.dart';
 
@@ -13,15 +14,50 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Palette Generator"),
-            CircleAvatar(
-              child: Image.asset("images/paint-palette.png"),
-              // TODO: mudar isso aqui depois
-              backgroundColor: Colors.deepPurple[600],
-              radius: 50,
+            Flexible(
+              flex: 2,
+              child: Text(
+                "Palette Generator",
+                style: Theme.of(context).textTheme.headline4,
+              ),
             ),
-            Text("Developed by Hericles Koelher"),
-            // TODO: add twitter
+            Spacer(),
+            Flexible(
+              flex: 2,
+              child: CircleAvatar(
+                child: Image.asset("images/paint-palette.png"),
+                backgroundColor: Theme.of(context).primaryColor,
+                radius: 50,
+              ),
+            ),
+            Spacer(),
+            Flexible(
+              flex: 2,
+              child: Text(
+                "Developed by Hericles Koelher",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+            // Spacer(),
+            Flexible(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    child: FaIcon(
+                      FontAwesomeIcons.twitter,
+                      color: Colors.blue,
+                      size: 30,
+                    ),
+                  ),
+                  Flexible(
+                    child: Text("@HericlesKoelher"),
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
           ],
         ),
       ),

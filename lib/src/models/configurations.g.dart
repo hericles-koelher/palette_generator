@@ -17,8 +17,8 @@ class ConfigurationsAdapter extends TypeAdapter<Configurations> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Configurations(
-      minColors: fields[0] == null ? 4 : fields[0] as int,
-      maxColors: fields[1] == null ? 32 : fields[1] as int,
+      minColors: fields[0] as int,
+      maxColors: fields[1] as int,
       sortByPalette: fields[2] as SortByPalette,
     );
   }

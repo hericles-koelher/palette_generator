@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:hive/hive.dart';
-import 'package:palette_generator/src/ThemeManager.dart';
+import 'package:palette_generator/src/theme_manager.dart';
 import 'package:provider/provider.dart';
 import 'src/constants.dart';
 import 'src/models.dart';

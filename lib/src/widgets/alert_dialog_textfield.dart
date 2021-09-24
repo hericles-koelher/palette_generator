@@ -38,6 +38,7 @@ class _AlertDialogTextFieldState extends State<AlertDialogTextField> {
       content: TextField(
         controller: widget.textController,
         maxLines: 1,
+        autofocus: true,
         style: Theme.of(context).textTheme.bodyText2!.copyWith(
               fontSize: 18,
             ),
