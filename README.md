@@ -53,10 +53,10 @@
 
 ## Features
 
-- [x] Palette creation.
-- [x] Palette persist.
-- [ ] Export palette.
-- [ ] Settings page.
+- [x] Palette creation
+- [x] Palette persist
+- [ ] Export palette
+- [ ] Settings page
 
 ---
 
@@ -71,7 +71,7 @@ Below are some screens images and demo of the app.
 
   <img alt="Home Screen Actions Demo" title="#HomeScreenActions" src="./images/readme_images/gifs/palette_list_actions.gif" width="200px">
   
-    <img alt="Palette Screen Demo" title="#PaletteScreen" src="./images/readme_images/gifs/palette_screen.gif" width="200px">
+  <img alt="Palette Screen Demo" title="#PaletteScreen" src="./images/readme_images/gifs/palette_screen.gif" width="200px">
 </p>
 
 ---
