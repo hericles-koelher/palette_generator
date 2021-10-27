@@ -23,7 +23,7 @@
 
 
 <h4 align="center"> 
-	 Status: Working
+	 Status: Under Development
 </h4>
 
 <p align="center">
@@ -55,8 +55,8 @@
 
 - [x] Palette creation.
 - [x] Palette persist.
-- [  ] Export palette.
-- [  ] Settings page.
+- [ ] Export palette.
+- [ ] Settings page.
 
 ---
 
