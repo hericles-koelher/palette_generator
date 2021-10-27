@@ -43,11 +43,10 @@
 
 🎨 Palette Generator - is just an little project made with the purpose of study mobile development with:
 
+- **[Dart](https://dart.dev)**
 - **[Flutter](https://flutter.dev/)**
-- **[State Management](https://en.wikipedia.org/wiki/State_management)**
-- **[State Notifier](https://pub.dev/packages/state_notifier)**
 - **[Provider](https://pub.dev/packages/provider)**
-- **[Hive](https://pub.dev/packages/hive)**
+- **[State Notifier](https://pub.dev/packages/state_notifier)**
 
 ---
 
@@ -121,6 +120,7 @@ The following tools were used in the construction of the project:
 
 -   **[Dart](https://dart.dev)**
 -   **[Flutter](https://flutter.dev)**
+-   **[Hive](https://pub.dev/packages/hive)**
 
 #### **Utilities**
 
