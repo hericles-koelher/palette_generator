@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'sort_by_palette.g.dart';
+part 'settings_enum.g.dart';
 
 @HiveType(typeId: 1)
 enum SortByPalette {
@@ -15,4 +15,16 @@ enum SortByPalette {
 
   @HiveField(3)
   creation_newest,
+}
+
+@HiveType(typeId: 2)
+enum FileType {
+  @HiveField(0)
+  gpl,
+
+  @HiveField(1)
+  jasc_pal,
+
+  @HiveField(2)
+  hex,
 }

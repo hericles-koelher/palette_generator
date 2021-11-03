@@ -1,4 +1,4 @@
 export 'models/state_notifiers.dart';
-export 'models/configurations.dart';
+export 'models/settings.dart';
 export 'models/palette_info.dart';
-export 'models/sort_by_palette.dart';
+export 'models/settings_enum.dart';

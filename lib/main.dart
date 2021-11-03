@@ -12,7 +12,7 @@ void main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter(PaletteInfoAdapter());
-  Hive.registerAdapter(ConfigurationsAdapter());
+  Hive.registerAdapter(SettingsAdapter());
 
   await Hive.openBox(kPaletteBox);
 

@@ -9,7 +9,7 @@ class NumberOfColorsSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sliderNotifier = Provider.of<SliderStateNotifier>(context);
-    final configNotifier = Provider.of<ConfigurationsStateNotifier>(
+    final configNotifier = Provider.of<SettingsStateNotifier>(
       context,
       listen: false,
     );

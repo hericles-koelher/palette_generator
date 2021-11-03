@@ -23,7 +23,7 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
   late final PaletteStateNotifier _paletteStateNotifier;
   late final ColorListStateNotifier _colorListStateNotifier;
   late final SliderStateNotifier _sliderStateNotifier;
-  late final ConfigurationsStateNotifier _configurationsStateNotifier;
+  late final SettingsStateNotifier _configurationsStateNotifier;
 
   @override
   void initState() {
@@ -36,19 +36,20 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
         )
         .cast<PaletteInfo>();
 
-    Configurations config = widget.paletteBox.get(
+    Settings config = widget.paletteBox.get(
       kConfigs,
       defaultValue: kDefaultConfigurations,
     );
 
-    _configurationsStateNotifier =
-        ConfigurationsStateNotifier(initialState: config);
+    _configurationsStateNotifier = SettingsStateNotifier(initialState: config);
 
+    // TODO: inject config...
     _paletteStateNotifier = PaletteStateNotifier(
       palettes: paletteList,
       sortBy: config.sortByPalette,
     );
 
+    // TODO: inject config...
     _sliderStateNotifier = SliderStateNotifier(
       initialValue: config.minColors,
     );

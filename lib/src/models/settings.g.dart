@@ -1,38 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'configurations.dart';
+part of 'settings.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ConfigurationsAdapter extends TypeAdapter<Configurations> {
+class SettingsAdapter extends TypeAdapter<Settings> {
   @override
   final int typeId = 2;
 
   @override
-  Configurations read(BinaryReader reader) {
+  Settings read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Configurations(
+    return Settings(
       minColors: fields[0] as int,
       maxColors: fields[1] as int,
       sortByPalette: fields[2] as SortByPalette,
+      fileType: fields[3] as FileType,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Configurations obj) {
+  void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.minColors)
       ..writeByte(1)
       ..write(obj.maxColors)
       ..writeByte(2)
-      ..write(obj.sortByPalette);
+      ..write(obj.sortByPalette)
+      ..writeByte(3)
+      ..write(obj.fileType);
   }
 
   @override
@@ -41,7 +44,7 @@ class ConfigurationsAdapter extends TypeAdapter<Configurations> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ConfigurationsAdapter &&
+      other is SettingsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
