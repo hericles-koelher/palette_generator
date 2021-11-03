@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'palette_info.g.dart';
 
+// TODO: add description.
 @HiveType(typeId: 0)
 class PaletteInfo {
   @HiveField(0)
@@ -47,5 +48,25 @@ class PaletteInfo {
       creationDate: creationDate ?? this.creationDate,
       lastUpdate: lastUpdate ?? this.lastUpdate,
     );
+  }
+
+  String toGpl() {
+    String str = "Gimp Palette\n";
+
+    str += "Name: $paletteName\n";
+
+    str += "Colors: ${colors.length}\n";
+
+    for (int i = 0; i < colors.length; i++) {
+      int colorValue = colors[i];
+
+      int r = (colorValue >> 16) & 0xFF;
+      int g = (colorValue >> 8) & 0xFF;
+      int b = (colorValue >> 0) & 0xFF;
+
+      str += "$r $g $b\t${colorValue.toRadixString(16).substring(2)}\n";
+    }
+
+    return str;
   }
 }

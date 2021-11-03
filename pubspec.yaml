@@ -38,6 +38,8 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   flutter_slidable: ^0.6.0
+  path_provider: ^2.0.6
+  share_plus: ^3.0.4
 
 flutter_icons:
   android: true

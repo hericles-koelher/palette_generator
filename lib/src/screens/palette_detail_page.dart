@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../models.dart';
 import '../widgets.dart';
 
@@ -68,6 +72,19 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  void _shareAction(BuildContext context) async {
+    final documents = await getApplicationDocumentsDirectory();
+
+    final paletteFile =
+        File(documents.path + "/${_currentPaletteInfo.paletteName}.gpl");
+
+    await paletteFile.writeAsString(_currentPaletteInfo.toGpl());
+
+    debugPrint(paletteFile.existsSync().toString());
+
+    await Share.shareFiles([paletteFile.path], mimeTypes: ["application/gpl"]);
+  }
+
   void _renameAction(BuildContext context) {
     showDialog(
       context: context,
@@ -129,7 +146,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
                   _deleteAction(context);
                   break;
                 case _DetailsPageActions.share:
-                  // TODO: Arrumar isso aqui.
+                  _shareAction(context);
                   break;
                 case _DetailsPageActions.rename:
                   _renameAction(context);
