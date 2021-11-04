@@ -6,55 +6,12 @@ import 'package:palette_generator/src/models.dart';
 import 'package:provider/provider.dart';
 import '../widgets.dart';
 
-extension StringExtension on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1)}";
-  }
-}
-
-extension ParsePaletteToString on SortByPalette {
-  String toShortString() {
-    return this
-        .toString()
-        .split('.')
-        .last
-        .split("_")
-        .map((e) => e.capitalize())
-        .join(" ");
-  }
-}
-
-extension ParseFileTypeToString on FileType {
-  String toShortString() {
-    return this
-        .toString()
-        .split('.')
-        .last
-        .split("_")
-        .map((e) => e.toUpperCase())
-        .join(" ");
-  }
-}
-
-class SettingsScreen extends StatefulWidget {
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  late final SettingsStateNotifier _settingsStateNotifier;
-
-  @override
-  void initState() {
-    _settingsStateNotifier =
-        Provider.of<SettingsStateNotifier>(context, listen: false);
-
-    super.initState();
-  }
-
+class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final SettingsStateNotifier _settingsStateNotifier =
+        Provider.of<SettingsStateNotifier>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,12 +35,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      buildNumberPicker("Minimum", state.minColors, (value) {
-                        _settingsStateNotifier.setMinColors(value);
-                      }),
-                      buildNumberPicker("Maximum", state.maxColors, (value) {
-                        _settingsStateNotifier.setMaxColors(value);
-                      }),
+                      buildNumberPicker(
+                        label: "Minimum",
+                        value: state.minColors,
+                        onChanged: (value) {
+                          _settingsStateNotifier.setMinColors(value);
+                        },
+                        context: context,
+                      ),
+                      buildNumberPicker(
+                        label: "Maximum",
+                        value: state.maxColors,
+                        onChanged: (value) {
+                          _settingsStateNotifier.setMaxColors(value);
+                        },
+                        context: context,
+                      ),
                     ],
                   ),
                 ),
@@ -139,8 +106,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget buildNumberPicker(
-      String label, int value, void Function(int) onChanged) {
+  Widget buildNumberPicker({
+    required BuildContext context,
+    required String label,
+    required int value,
+    required void Function(int) onChanged,
+  }) {
+    final themeData = Theme.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -150,6 +123,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           value: value,
           onChanged: onChanged,
           itemHeight: 35,
+          selectedTextStyle: themeData.textTheme.headline5!.copyWith(
+            color: themeData.colorScheme.primary,
+          ),
         ),
         Text(label),
       ],

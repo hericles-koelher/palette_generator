@@ -96,7 +96,10 @@ class ThemeManager {
         iconTheme: IconThemeData(color: Colors.white),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
-        ).copyWith(secondary: Colors.lime),
+          accentColor: Colors.lime,
+        ).copyWith(
+          onSecondary: Colors.white,
+        ),
         primaryColor: primaryColor,
         textTheme: lightTextTheme,
         snackBarTheme: lightSnackBarThemeData,
