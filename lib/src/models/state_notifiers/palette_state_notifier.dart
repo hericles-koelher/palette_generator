@@ -16,12 +16,15 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
   PaletteInfo? _lastDeleted;
   SortByPalette _sortByPalette;
 
-  PaletteStateNotifier(
-      {required Box paletteBox,
-      required List<PaletteInfo> palettes,
-      required SettingsStateNotifier settings})
-      : _sortByPalette = settings.state.sortByPalette,
-        super(palettes) {
+  PaletteStateNotifier({
+    required Box paletteBox,
+    required SettingsStateNotifier settings,
+  })  : _sortByPalette = settings.state.sortByPalette,
+        super(
+          paletteBox
+              .get(kPaletteList, defaultValue: List.empty(growable: true))
+              .cast<PaletteInfo>(),
+        ) {
     _settingsSubscription = settings.stream.listen((newSettings) {
       _sortByPalette = newSettings.sortByPalette;
       _sort();

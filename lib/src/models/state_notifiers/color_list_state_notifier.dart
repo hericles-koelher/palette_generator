@@ -8,9 +8,8 @@ class ColorListStateNotifier extends StateNotifier<List<int>>
     with LocatorMixin {
   late final StreamSubscription _settingsSubscription;
 
-  ColorListStateNotifier(
-      {required SettingsStateNotifier settings, List<int> state = const []})
-      : super(state) {
+  ColorListStateNotifier({required SettingsStateNotifier settings})
+      : super(<int>[]) {
     _settingsSubscription = settings.stream.listen((newSettings) {
       createColorList(numberOfColors: newSettings.minColors);
     });

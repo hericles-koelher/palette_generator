@@ -26,27 +26,13 @@ class _PaletteGeneratorState extends State<PaletteGenerator> {
 
   @override
   void initState() {
-    List<PaletteInfo> paletteList = widget.paletteBox
-        .get(
-          kPaletteList,
-          defaultValue: List.empty(growable: true),
-        )
-        .cast<PaletteInfo>();
-
-    Settings settings = widget.paletteBox.get(
-      kSettings,
-      defaultValue: kDefaultConfigurations,
-    );
-
     _settingsStateNotifier = SettingsStateNotifier(
-      initialState: settings,
       paletteBox: widget.paletteBox,
     );
 
     _paletteStateNotifier = PaletteStateNotifier(
-      palettes: paletteList,
-      settings: _settingsStateNotifier,
       paletteBox: widget.paletteBox,
+      settings: _settingsStateNotifier,
     );
 
     _sliderStateNotifier = SliderStateNotifier(

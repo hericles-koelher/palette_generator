@@ -28,15 +28,14 @@ class PaletteGrid extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Material(
-              shape: CircleBorder(),
-              elevation: 5.0,
-              child: Container(
-                margin: const EdgeInsets.all(5.0),
-                decoration: ShapeDecoration(
-                  shape: CircleBorder(),
-                  color: currentColor,
+              clipBehavior: Clip.hardEdge,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(7.5),
                 ),
               ),
+              elevation: 5.0,
+              child: Container(color: currentColor),
             ),
           ),
         );

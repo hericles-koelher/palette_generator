@@ -8,9 +8,13 @@ import '../../models.dart';
 class SettingsStateNotifier extends StateNotifier<Settings> {
   late final StreamSubscription _stateSubscription;
 
-  SettingsStateNotifier(
-      {required Settings initialState, required Box paletteBox})
-      : super(initialState) {
+  SettingsStateNotifier({required Box paletteBox})
+      : super(
+          paletteBox.get(
+            kSettings,
+            defaultValue: kDefaultConfigurations,
+          ),
+        ) {
     _stateSubscription = stream.listen((newSettings) async {
       await paletteBox.put(kSettings, newSettings);
     });
