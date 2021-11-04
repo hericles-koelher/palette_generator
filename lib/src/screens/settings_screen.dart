@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:palette_generator/src/constants.dart';
 import 'package:palette_generator/src/models.dart';
 import 'package:provider/provider.dart';
-import 'package:select_form_field/select_form_field.dart';
 import '../widgets.dart';
 
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
+}
+
 extension ParsePaletteToString on SortByPalette {
+  String toShortString() {
+    return this
+        .toString()
+        .split('.')
+        .last
+        .split("_")
+        .map((e) => e.capitalize())
+        .join(" ");
+  }
+}
+
+extension ParseFileTypeToString on FileType {
   String toShortString() {
     return this
         .toString()
@@ -25,19 +43,11 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   late final SettingsStateNotifier _settingsStateNotifier;
-  late int minColors;
-  late int maxColors;
-  late SortByPalette sortingSchema;
-  late FileType exportFileType;
 
   @override
   void initState() {
     _settingsStateNotifier =
         Provider.of<SettingsStateNotifier>(context, listen: false);
-    minColors = _settingsStateNotifier.state.minColors;
-    maxColors = _settingsStateNotifier.state.maxColors;
-    sortingSchema = _settingsStateNotifier.state.sortByPalette;
-    exportFileType = _settingsStateNotifier.state.fileType;
 
     super.initState();
   }
@@ -52,52 +62,77 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Number of colors",
-              style: textTheme.headline6,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buildNumberPicker("Minimum", minColors, (value) {
-                    setState(() {
-                      minColors = value;
-                    });
-                  }),
-                  buildNumberPicker("Maximum", maxColors, (value) {
-                    setState(() {
-                      maxColors = value;
-                    });
-                  }),
-                ],
-              ),
-            ),
-            const Divider(),
-            Text(
-              "Sorting schema",
-              style: textTheme.headline6,
-            ),
-            SelectFormField(
-              items: SortByPalette.values
-                  .map((e) => {
-                        "value": e,
-                        "label": e.toShortString(),
-                      }.cast<String, dynamic>())
-                  .toList(),
-            ),
-            const Divider(),
-            Text(
-              "Export file format",
-              style: textTheme.headline6,
-            ),
-            // TODO: add save button.
-          ],
+        child: StateNotifierBuilder<Settings>(
+          stateNotifier: _settingsStateNotifier,
+          builder: (context, state, child) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Number of colors",
+                  style: textTheme.bodyText1,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      buildNumberPicker("Minimum", state.minColors, (value) {
+                        _settingsStateNotifier.setMinColors(value);
+                      }),
+                      buildNumberPicker("Maximum", state.maxColors, (value) {
+                        _settingsStateNotifier.setMaxColors(value);
+                      }),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                Text(
+                  "Sorting schema",
+                  style: textTheme.bodyText1,
+                ),
+                DropdownButton<SortByPalette>(
+                  value: state.sortByPalette,
+                  isExpanded: true,
+                  items: SortByPalette.values
+                      .map(
+                        (item) => DropdownMenuItem<SortByPalette>(
+                          value: item,
+                          child: Text(
+                            item.toShortString(),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    _settingsStateNotifier.sortBy(value!);
+                  },
+                ),
+                Text(
+                  "Export file format",
+                  style: textTheme.bodyText1,
+                ),
+                DropdownButton<FileType>(
+                  value: state.fileType,
+                  isExpanded: true,
+                  items: FileType.values
+                      .map(
+                        (item) => DropdownMenuItem<FileType>(
+                          value: item,
+                          child: Text(
+                            item.toShortString(),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    _settingsStateNotifier.changeExportFileFormat(value!);
+                  },
+                ),
+              ],
+            );
+          },
         ),
       ),
       drawer: ApplicationDrawer(),

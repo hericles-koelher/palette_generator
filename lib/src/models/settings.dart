@@ -4,7 +4,7 @@ import '../models.dart';
 
 part 'settings.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
 class Settings {
   @HiveField(0)
   final int minColors;

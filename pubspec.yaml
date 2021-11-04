@@ -41,7 +41,6 @@ dependencies:
   path_provider: ^2.0.6
   share_plus: ^3.0.4
   numberpicker: ^2.1.1
-  select_form_field: ^2.2.0
 
 flutter_icons:
   android: true

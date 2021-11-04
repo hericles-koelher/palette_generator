@@ -9,7 +9,7 @@ class NumberOfColorsSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sliderNotifier = Provider.of<SliderStateNotifier>(context);
-    final configNotifier = Provider.of<SettingsStateNotifier>(
+    final settingsNotifier = Provider.of<SettingsStateNotifier>(
       context,
       listen: false,
     );
@@ -38,8 +38,8 @@ class NumberOfColorsSlider extends StatelessWidget {
             Slider(
               label: state.toString(),
               value: state.toDouble(),
-              min: configNotifier.state.minColors.toDouble(),
-              max: configNotifier.state.maxColors.toDouble(),
+              min: settingsNotifier.state.minColors.toDouble(),
+              max: settingsNotifier.state.maxColors.toDouble(),
               onChanged: (value) {
                 sliderNotifier.change(value.toInt());
               },

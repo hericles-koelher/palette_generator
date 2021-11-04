@@ -11,8 +11,11 @@ void main() async {
 
   await Hive.initFlutter();
 
-  Hive.registerAdapter(PaletteInfoAdapter());
-  Hive.registerAdapter(SettingsAdapter());
+  // If adapters change then they will be overridden.
+  Hive.registerAdapter(PaletteInfoAdapter(), override: true);
+  Hive.registerAdapter(SettingsAdapter(), override: true);
+  Hive.registerAdapter(SortByPaletteAdapter(), override: true);
+  Hive.registerAdapter(FileTypeAdapter(), override: true);
 
   await Hive.openBox(kPaletteBox);
 

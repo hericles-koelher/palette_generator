@@ -18,17 +18,14 @@ class PaletteGenerator extends StatefulWidget {
   State<PaletteGenerator> createState() => _PaletteGeneratorState();
 }
 
-class _PaletteGeneratorState extends State<PaletteGenerator>
-    with WidgetsBindingObserver {
+class _PaletteGeneratorState extends State<PaletteGenerator> {
   late final PaletteStateNotifier _paletteStateNotifier;
   late final ColorListStateNotifier _colorListStateNotifier;
   late final SliderStateNotifier _sliderStateNotifier;
-  late final SettingsStateNotifier _configurationsStateNotifier;
+  late final SettingsStateNotifier _settingsStateNotifier;
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addObserver(this);
-
     List<PaletteInfo> paletteList = widget.paletteBox
         .get(
           kPaletteList,
@@ -36,55 +33,43 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
         )
         .cast<PaletteInfo>();
 
-    Settings config = widget.paletteBox.get(
-      kConfigs,
+    Settings settings = widget.paletteBox.get(
+      kSettings,
       defaultValue: kDefaultConfigurations,
     );
 
-    _configurationsStateNotifier = SettingsStateNotifier(initialState: config);
+    _settingsStateNotifier = SettingsStateNotifier(
+      initialState: settings,
+      paletteBox: widget.paletteBox,
+    );
 
-    // TODO: inject config...
     _paletteStateNotifier = PaletteStateNotifier(
       palettes: paletteList,
-      sortBy: config.sortByPalette,
+      settings: _settingsStateNotifier,
+      paletteBox: widget.paletteBox,
     );
 
-    // TODO: inject config...
     _sliderStateNotifier = SliderStateNotifier(
-      initialValue: config.minColors,
+      settings: _settingsStateNotifier,
     );
 
-    _colorListStateNotifier = ColorListStateNotifier();
-
-    // Always start the application with a
-    // 4 color random palette that will be used
-    // by PaletteCreationPage.
-    _colorListStateNotifier.createColorList(
-      numberOfColors: _sliderStateNotifier.state,
+    _colorListStateNotifier = ColorListStateNotifier(
+      settings: _settingsStateNotifier,
     );
 
     super.initState();
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+  Future<void> dispose() async {
+    await _paletteStateNotifier.dispose();
+    await _settingsStateNotifier.dispose();
+    await _colorListStateNotifier.dispose();
+    await _sliderStateNotifier.dispose();
 
-    _paletteStateNotifier.dispose();
-    _colorListStateNotifier.dispose();
-    _sliderStateNotifier.dispose();
-    _configurationsStateNotifier.dispose();
+    await widget.paletteBox.close();
 
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      widget.paletteBox.put(kPaletteList, _paletteStateNotifier.state);
-    }
-
-    super.didChangeAppLifecycleState(state);
   }
 
   @override
@@ -94,7 +79,7 @@ class _PaletteGeneratorState extends State<PaletteGenerator>
         StateNotifierProvider.value(value: _paletteStateNotifier),
         StateNotifierProvider.value(value: _colorListStateNotifier),
         StateNotifierProvider.value(value: _sliderStateNotifier),
-        StateNotifierProvider.value(value: _configurationsStateNotifier),
+        StateNotifierProvider.value(value: _settingsStateNotifier),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

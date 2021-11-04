@@ -1,9 +1,11 @@
 import 'package:palette_generator/src/models.dart';
 
+const SortByPalette kDefaultSortingSchema = SortByPalette.creation_newest;
+
 const Settings kDefaultConfigurations = Settings(
   minColors: 4,
   maxColors: 32,
-  sortByPalette: SortByPalette.creation_newest,
+  sortByPalette: kDefaultSortingSchema,
   fileType: FileType.gpl,
 );
 
@@ -11,7 +13,7 @@ const String kPaletteBox = "palette_box";
 
 const String kPaletteList = "palettes";
 
-const String kConfigs = "configs";
+const String kSettings = "settings";
 
 const int kMinColors = 1;
 

@@ -8,7 +8,7 @@ part of 'settings_enum.dart';
 
 class SortByPaletteAdapter extends TypeAdapter<SortByPalette> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
   SortByPalette read(BinaryReader reader) {
@@ -57,7 +57,7 @@ class SortByPaletteAdapter extends TypeAdapter<SortByPalette> {
 
 class FileTypeAdapter extends TypeAdapter<FileType> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
   FileType read(BinaryReader reader) {

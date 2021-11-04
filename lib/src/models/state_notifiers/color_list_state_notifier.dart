@@ -1,9 +1,23 @@
+import 'dart:async';
+
 import 'package:palette/palette.dart';
+import 'package:palette_generator/src/models.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 class ColorListStateNotifier extends StateNotifier<List<int>>
     with LocatorMixin {
-  ColorListStateNotifier([List<int> state = const []]) : super(state);
+  late final StreamSubscription _settingsSubscription;
+
+  ColorListStateNotifier(
+      {required SettingsStateNotifier settings, List<int> state = const []})
+      : super(state) {
+    _settingsSubscription = settings.stream.listen((newSettings) {
+      createColorList(numberOfColors: newSettings.minColors);
+    });
+
+    // setting initial list...
+    createColorList(numberOfColors: settings.state.minColors);
+  }
 
   void createColorList({required int numberOfColors}) {
     var colorPalette = ColorPalette.random(numberOfColors);
@@ -27,5 +41,12 @@ class ColorListStateNotifier extends StateNotifier<List<int>>
       "${alpha.toRadixString(16)}${red.toRadixString(16)}${blue.toRadixString(16)}${green.toRadixString(16)}",
       radix: 16,
     );
+  }
+
+  @override
+  Future<void> dispose() async {
+    await _settingsSubscription.cancel();
+
+    super.dispose();
   }
 }

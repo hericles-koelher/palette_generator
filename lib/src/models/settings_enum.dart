@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'settings_enum.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 enum SortByPalette {
   @HiveField(0)
   name_ascending,
@@ -17,7 +17,7 @@ enum SortByPalette {
   creation_newest,
 }
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 3)
 enum FileType {
   @HiveField(0)
   gpl,
