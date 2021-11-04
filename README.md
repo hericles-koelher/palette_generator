@@ -54,8 +54,10 @@
 
 - [x] Palette creation
 - [x] Palette persist
-- [ ] Export palette
-- [ ] Settings page
+- [x] Export palette
+- [x] Settings page
+- [ ] Migration to Navigator 2
+- [ ] Internationalization
 
 ---
 
