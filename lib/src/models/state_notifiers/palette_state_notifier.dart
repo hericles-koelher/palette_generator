@@ -56,7 +56,10 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     state = [...state]..sort(callback);
   }
 
-  void savePalette({required String paletteName, required List<int> colors}) {
+  void savePalette(
+      {required String paletteName,
+      required List<int> colors,
+      String? description}) {
     var now = DateTime.now();
     String id = _uuid.v4();
 
@@ -66,7 +69,7 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
         id: id,
         colors: colors,
         creationDate: now,
-        lastUpdate: now,
+        description: description,
       ),
     );
 
@@ -77,11 +80,12 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     PaletteInfo palette, {
     String? paletteName,
     bool? isFavorite,
+    String? description,
   }) {
     PaletteInfo newPalette = palette.copyWith(
       paletteName: paletteName,
       isFavorite: isFavorite,
-      lastUpdate: DateTime.now(),
+      description: description,
     );
 
     state.remove(palette);

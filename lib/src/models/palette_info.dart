@@ -17,19 +17,19 @@ class PaletteInfo {
   @HiveField(3)
   final DateTime creationDate;
 
-  @HiveField(4)
-  final DateTime lastUpdate;
-
   @HiveField(5)
   final bool isFavorite;
+
+  @HiveField(6)
+  final String? description;
 
   PaletteInfo({
     required this.paletteName,
     required this.id,
     required this.colors,
     required this.creationDate,
-    required this.lastUpdate,
     this.isFavorite = false,
+    this.description,
   });
 
   PaletteInfo copyWith({
@@ -38,7 +38,7 @@ class PaletteInfo {
     List<int>? colors,
     bool? isFavorite,
     DateTime? creationDate,
-    DateTime? lastUpdate,
+    String? description,
   }) {
     return PaletteInfo(
       paletteName: paletteName ?? this.paletteName,
@@ -46,7 +46,7 @@ class PaletteInfo {
       colors: colors ?? this.colors,
       isFavorite: isFavorite ?? this.isFavorite,
       creationDate: creationDate ?? this.creationDate,
-      lastUpdate: lastUpdate ?? this.lastUpdate,
+      description: description ?? this.description,
     );
   }
 

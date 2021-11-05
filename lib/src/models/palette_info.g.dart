@@ -21,8 +21,8 @@ class PaletteInfoAdapter extends TypeAdapter<PaletteInfo> {
       id: fields[1] as String,
       colors: (fields[2] as List).cast<int>(),
       creationDate: fields[3] as DateTime,
-      lastUpdate: fields[4] as DateTime,
       isFavorite: fields[5] as bool,
+      description: fields[6] as String?,
     );
   }
 
@@ -38,10 +38,10 @@ class PaletteInfoAdapter extends TypeAdapter<PaletteInfo> {
       ..write(obj.colors)
       ..writeByte(3)
       ..write(obj.creationDate)
-      ..writeByte(4)
-      ..write(obj.lastUpdate)
       ..writeByte(5)
-      ..write(obj.isFavorite);
+      ..write(obj.isFavorite)
+      ..writeByte(6)
+      ..write(obj.description);
   }
 
   @override
