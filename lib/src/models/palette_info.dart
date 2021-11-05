@@ -2,7 +2,6 @@ import 'package:hive/hive.dart';
 
 part 'palette_info.g.dart';
 
-// TODO: add description.
 @HiveType(typeId: 0)
 class PaletteInfo {
   @HiveField(0)

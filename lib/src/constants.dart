@@ -20,3 +20,7 @@ const int kMinColors = 1;
 const int kMaxColors = 128;
 
 const int kNameMaxLength = 25;
+
+const double kVerticalPadding = 40;
+
+const double kHorizontalPadding = 20;

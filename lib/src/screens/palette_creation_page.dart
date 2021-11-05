@@ -42,7 +42,6 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
   void dispose() {
     _nameController.dispose();
     _descriptionController.dispose();
-    _formKey.currentState!.dispose();
 
     super.dispose();
   }
@@ -85,7 +84,10 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+        padding: EdgeInsets.symmetric(
+          vertical: kVerticalPadding,
+          horizontal: kHorizontalPadding,
+        ),
         children: [
           Form(
             key: _formKey,

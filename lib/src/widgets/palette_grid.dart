@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 
 class PaletteGrid extends StatelessWidget {
   final List<int> colors;
-  final EdgeInsetsGeometry? padding;
 
   const PaletteGrid({
     Key? key,
     required this.colors,
-    this.padding,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GridView(
-      padding: padding,
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
