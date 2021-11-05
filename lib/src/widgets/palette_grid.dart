@@ -14,6 +14,7 @@ class PaletteGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView(
       padding: padding,
+      shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
       ),
@@ -29,11 +30,7 @@ class PaletteGrid extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: Material(
               clipBehavior: Clip.hardEdge,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(7.5),
-                ),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
               elevation: 5.0,
               child: Container(color: currentColor),
             ),

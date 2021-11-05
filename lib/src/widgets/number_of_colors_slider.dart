@@ -14,39 +14,41 @@ class NumberOfColorsSlider extends StatelessWidget {
       listen: false,
     );
 
-    return StateNotifierBuilder<int>(
-      stateNotifier: sliderNotifier,
-      builder: (context, state, child) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Number of colors:",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  Text(
-                    state.toString(),
-                    style: Theme.of(context).textTheme.bodyText1!,
-                  ),
-                ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+      child: StateNotifierBuilder<int>(
+        stateNotifier: sliderNotifier,
+        builder: (context, state, child) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Number of colors:",
+                    ),
+                    Text(
+                      state.toString(),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Slider(
-              label: state.toString(),
-              value: state.toDouble(),
-              min: settingsNotifier.state.minColors.toDouble(),
-              max: settingsNotifier.state.maxColors.toDouble(),
-              onChanged: (value) {
-                sliderNotifier.change(value.toInt());
-              },
-            ),
-          ],
-        );
-      },
+              Slider(
+                label: state.toString(),
+                value: state.toDouble(),
+                min: settingsNotifier.state.minColors.toDouble(),
+                max: settingsNotifier.state.maxColors.toDouble(),
+                onChanged: (value) {
+                  sliderNotifier.change(value.toInt());
+                },
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

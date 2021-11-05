@@ -18,3 +18,5 @@ const String kSettings = "settings";
 const int kMinColors = 1;
 
 const int kMaxColors = 128;
+
+const int kNameMaxLength = 25;
