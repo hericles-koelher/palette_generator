@@ -24,3 +24,5 @@ const int kNameMaxLength = 25;
 const double kVerticalPadding = 40;
 
 const double kHorizontalPadding = 20;
+
+const double kAppVersion = 0.8;

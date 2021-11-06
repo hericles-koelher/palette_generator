@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:palette_generator/src/constants.dart';
 import 'package:palette_generator/src/models.dart';
@@ -9,7 +10,8 @@ import '../widgets.dart';
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     final SettingsStateNotifier _settingsStateNotifier =
         Provider.of<SettingsStateNotifier>(context, listen: false);
 
@@ -18,7 +20,10 @@ class SettingsScreen extends StatelessWidget {
         title: Text("Settings"),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        padding: const EdgeInsets.symmetric(
+          vertical: kVerticalPadding,
+          horizontal: kHorizontalPadding,
+        ),
         child: StateNotifierBuilder<Settings>(
           stateNotifier: _settingsStateNotifier,
           builder: (context, state, child) {
@@ -62,16 +67,40 @@ class SettingsScreen extends StatelessWidget {
                 DropdownButton<SortByPalette>(
                   value: state.sortByPalette,
                   isExpanded: true,
-                  items: SortByPalette.values
-                      .map(
-                        (item) => DropdownMenuItem<SortByPalette>(
-                          value: item,
-                          child: Text(
-                            item.toShortString(),
-                          ),
-                        ),
-                      )
-                      .toList(),
+                  items: [
+                    buildSortDropdown(
+                      value: SortByPalette.name_ascending,
+                      label: "Ascending",
+                      icon: FaIcon(
+                        FontAwesomeIcons.sortAlphaDown,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                    buildSortDropdown(
+                      value: SortByPalette.name_descending,
+                      label: "Descending",
+                      icon: FaIcon(
+                        FontAwesomeIcons.sortAlphaUp,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                    buildSortDropdown(
+                      value: SortByPalette.creation_newest,
+                      label: "Newest",
+                      icon: FaIcon(
+                        FontAwesomeIcons.sortNumericDown,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                    buildSortDropdown(
+                      value: SortByPalette.creation_oldest,
+                      label: "Oldest",
+                      icon: FaIcon(
+                        FontAwesomeIcons.sortNumericUp,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ],
                   onChanged: (value) {
                     _settingsStateNotifier.sortBy(value!);
                   },
@@ -129,6 +158,23 @@ class SettingsScreen extends StatelessWidget {
         ),
         Text(label),
       ],
+    );
+  }
+
+  DropdownMenuItem<SortByPalette> buildSortDropdown({
+    required SortByPalette value,
+    required String label,
+    required Widget icon,
+  }) {
+    return DropdownMenuItem<SortByPalette>(
+      value: value,
+      child: Row(
+        children: [
+          icon,
+          SizedBox(width: 15),
+          Text(label),
+        ],
+      ),
     );
   }
 }

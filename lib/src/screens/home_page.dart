@@ -25,15 +25,18 @@ class HomePage extends StatelessWidget {
                   SliverFillRemaining(
                     child: Column(
                       children: [
-                        TabBar(
-                          tabs: [
-                            Tab(
-                              text: "All",
-                            ),
-                            Tab(
-                              text: "Favorites",
-                            ),
-                          ],
+                        Material(
+                          elevation: 2,
+                          child: TabBar(
+                            tabs: [
+                              Tab(
+                                text: "All",
+                              ),
+                              Tab(
+                                text: "Favorites",
+                              ),
+                            ],
+                          ),
                         ),
                         Expanded(
                           child: TabBarView(
@@ -126,7 +129,7 @@ class HomePage extends StatelessWidget {
       itemBuilder: (_, index) {
         String paletteId = palettes[index].id;
 
-        final palette = HomePaletteListTile(
+        final palette = PaletteInfoListTile(
           paletteInfo: palettes[index],
         );
 
@@ -134,8 +137,8 @@ class HomePage extends StatelessWidget {
           paletteNotifier.deletePalette(paletteId);
 
           final SnackBar snackBar = SnackBar(
-            content: Text(
-                "Palette \'${palette.paletteInfo.paletteName}\' was deleted!"),
+            content:
+                Text("Palette \'${palette.paletteInfo.name}\' was deleted!"),
             action: SnackBarAction(
               label: "UNDO",
               onPressed: () {

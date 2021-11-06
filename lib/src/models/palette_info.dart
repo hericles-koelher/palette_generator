@@ -5,7 +5,7 @@ part 'palette_info.g.dart';
 @HiveType(typeId: 0)
 class PaletteInfo {
   @HiveField(0)
-  final String paletteName;
+  final String name;
 
   @HiveField(1)
   final String id;
@@ -23,7 +23,7 @@ class PaletteInfo {
   final String? description;
 
   PaletteInfo({
-    required this.paletteName,
+    required this.name,
     required this.id,
     required this.colors,
     required this.creationDate,
@@ -32,7 +32,7 @@ class PaletteInfo {
   });
 
   PaletteInfo copyWith({
-    String? paletteName,
+    String? name,
     String? id,
     List<int>? colors,
     bool? isFavorite,
@@ -40,7 +40,7 @@ class PaletteInfo {
     String? description,
   }) {
     return PaletteInfo(
-      paletteName: paletteName ?? this.paletteName,
+      name: name ?? this.name,
       id: id ?? this.id,
       colors: colors ?? this.colors,
       isFavorite: isFavorite ?? this.isFavorite,
@@ -52,7 +52,7 @@ class PaletteInfo {
   String toGpl() {
     String str = "Gimp Palette\n";
 
-    str += "Name: $paletteName\n";
+    str += "Name: $name\n";
 
     str += "Colors: ${colors.length}\n";
 

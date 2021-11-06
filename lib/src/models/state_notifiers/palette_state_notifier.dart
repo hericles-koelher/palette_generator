@@ -40,10 +40,10 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
 
     switch (_sortByPalette) {
       case SortByPalette.name_ascending:
-        callback = (pA, pB) => pA.paletteName.compareTo(pB.paletteName);
+        callback = (pA, pB) => pA.name.compareTo(pB.name);
         break;
       case SortByPalette.name_descending:
-        callback = (pA, pB) => pB.paletteName.compareTo(pA.paletteName);
+        callback = (pA, pB) => pB.name.compareTo(pA.name);
         break;
       case SortByPalette.creation_oldest:
         callback = (pA, pB) => pA.creationDate.compareTo(pB.creationDate);
@@ -65,7 +65,7 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
 
     state.add(
       PaletteInfo(
-        paletteName: paletteName,
+        name: paletteName,
         id: id,
         colors: colors,
         creationDate: now,
@@ -83,7 +83,7 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
     String? description,
   }) {
     PaletteInfo newPalette = palette.copyWith(
-      paletteName: paletteName,
+      name: paletteName,
       isFavorite: isFavorite,
       description: description,
     );

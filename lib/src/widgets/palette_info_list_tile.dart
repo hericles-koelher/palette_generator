@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import '../models.dart';
 import '../screens.dart';
 
-class HomePaletteListTile extends StatelessWidget {
+class PaletteInfoListTile extends StatelessWidget {
   final PaletteInfo paletteInfo;
 
-  const HomePaletteListTile({Key? key, required this.paletteInfo})
+  const PaletteInfoListTile({Key? key, required this.paletteInfo})
       : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class HomePaletteListTile extends StatelessWidget {
     return ListTile(
       leading: FaIcon(FontAwesomeIcons.palette),
       title: Text(
-        paletteInfo.paletteName,
+        paletteInfo.name,
         maxLines: 1,
         style: Theme.of(context).textTheme.bodyText2!.copyWith(
               fontSize: 18,

@@ -17,7 +17,7 @@ class PaletteInfoAdapter extends TypeAdapter<PaletteInfo> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return PaletteInfo(
-      paletteName: fields[0] as String,
+      name: fields[0] as String,
       id: fields[1] as String,
       colors: (fields[2] as List).cast<int>(),
       creationDate: fields[3] as DateTime,
@@ -31,7 +31,7 @@ class PaletteInfoAdapter extends TypeAdapter<PaletteInfo> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.paletteName)
+      ..write(obj.name)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)

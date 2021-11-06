@@ -47,8 +47,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -112,7 +111,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
             child: Text(
-              _currentPaletteInfo.paletteName,
+              _currentPaletteInfo.name,
             ),
           ),
           Text(
@@ -158,7 +157,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
     final documents = await getApplicationDocumentsDirectory();
 
     final paletteFile =
-        File(documents.path + "/${_currentPaletteInfo.paletteName}.gpl");
+        File(documents.path + "/${_currentPaletteInfo.name}.gpl");
 
     await paletteFile.writeAsString(_currentPaletteInfo.toGpl());
 
@@ -174,7 +173,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
 
     final SnackBar snackBar = SnackBar(
       content: Text(
-        "Palette \'${_currentPaletteInfo.paletteName}\' was deleted!",
+        "Palette \'${_currentPaletteInfo.name}\' was deleted!",
       ),
       action: SnackBarAction(
         label: "UNDO",
