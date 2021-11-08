@@ -46,24 +46,22 @@ class ThemeManager {
         ),
       );
 
-  static TextButtonThemeData get lightTextButtonThemeData =>
-      TextButtonThemeData(
-        style: ButtonStyle(
-          textStyle: MaterialStateProperty.all(
-            TextStyle(
-              fontFamily: fontFamily,
-              fontSize: 18,
-            ),
-          ),
-        ),
-      );
-
   static AppBarTheme get lightAppBarTheme => AppBarTheme(
         titleTextStyle: lightTextTheme.headline6!.copyWith(
           color: Colors.white,
         ),
         toolbarTextStyle: lightTextTheme.bodyText2!.copyWith(
           color: Colors.white,
+        ),
+      );
+
+  static TextButtonThemeData get lightTextButtonTheme => TextButtonThemeData(
+        style: ButtonStyle(
+          textStyle: MaterialStateProperty.all(
+            lightTextTheme.bodyText2!.copyWith(
+              color: primaryColor,
+            ),
+          ),
         ),
       );
 
@@ -103,7 +101,7 @@ class ThemeManager {
         primaryColor: primaryColor,
         textTheme: lightTextTheme,
         snackBarTheme: lightSnackBarThemeData,
-        textButtonTheme: lightTextButtonThemeData,
+        textButtonTheme: lightTextButtonTheme,
         appBarTheme: lightAppBarTheme,
         tabBarTheme: lightTabBarTheme,
       );

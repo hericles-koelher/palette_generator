@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:palette_generator/src/constants.dart';
 import 'package:path_provider/path_provider.dart';
@@ -150,7 +152,107 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
     );
   }
 
-  void _editAction(BuildContext context) {}
+  void _editAction(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    final nameController =
+        TextEditingController(text: _currentPaletteInfo.name);
+    final descriptionController =
+        TextEditingController(text: _currentPaletteInfo.description);
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      builder: (_) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: kVerticalPadding,
+              horizontal: kHorizontalPadding,
+            ),
+            child: Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        labelText: "Palette Name",
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (String? text) {
+                        if (text == null || text.isEmpty) {
+                          return "Please give your palette a name.";
+                        } else {
+                          return null;
+                        }
+                      },
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(kNameMaxLength)
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      controller: descriptionController,
+                      minLines: 1,
+                      maxLines: 5,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        labelText: "Palette Description*",
+                        helperText: "*Optional",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(
+                            "Cancel",
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Talvez quando eu trocar pro Navigator 2 eu resolva essa gambiarra...
+                            if (formKey.currentState!.validate()) {
+                              setState(() {
+                                _currentPaletteInfo =
+                                    _paletteStateNotifier.updatePalette(
+                                  _currentPaletteInfo,
+                                  name: nameController.text,
+                                  description: descriptionController.text,
+                                );
+                              });
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text("Apply"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   // TODO: ajustar para exportar para o formato selecionado nas configurações.
   void _shareAction(BuildContext context) async {
