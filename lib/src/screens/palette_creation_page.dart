@@ -72,7 +72,7 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
                 List<int> colors = colorListNotifier.state;
 
                 paletteNotifier.savePalette(
-                  paletteName: _nameController.text.trim(),
+                  name: _nameController.text.trim(),
                   description: _descriptionController.text.trim(),
                   colors: colors,
                 );
