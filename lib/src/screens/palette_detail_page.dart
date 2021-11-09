@@ -31,11 +31,14 @@ class PaletteDetailPage extends StatefulWidget {
 class _PaletteDetailPageState extends State<PaletteDetailPage> {
   late final PaletteStateNotifier _paletteStateNotifier;
   final GlobalKey<FormState> _editionFormKey;
-  bool _editionEnabled = false;
+  final _nameController;
+  final _descriptionController;
   PaletteInfo _currentPaletteInfo;
 
   _PaletteDetailPageState(this._currentPaletteInfo)
       : _editionFormKey = GlobalKey<FormState>(),
+        _nameController = TextEditingController(),
+        _descriptionController = TextEditingController(),
         super();
 
   @override
@@ -45,6 +48,14 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
         Provider.of<PaletteStateNotifier>(context, listen: false);
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -153,11 +164,8 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
   }
 
   void _editAction(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    final nameController =
-        TextEditingController(text: _currentPaletteInfo.name);
-    final descriptionController =
-        TextEditingController(text: _currentPaletteInfo.description);
+    _nameController.text = _currentPaletteInfo.name;
+    _descriptionController.text = _currentPaletteInfo.description;
 
     showModalBottomSheet(
       context: context,
@@ -174,14 +182,14 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
             ),
             child: Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              key: formKey,
+              key: _editionFormKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: TextFormField(
-                      controller: nameController,
+                      controller: _nameController,
                       decoration: InputDecoration(
                         labelText: "Palette Name",
                         border: OutlineInputBorder(),
@@ -201,7 +209,7 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: TextFormField(
-                      controller: descriptionController,
+                      controller: _descriptionController,
                       minLines: 1,
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
@@ -228,15 +236,16 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
                         ElevatedButton(
                           onPressed: () {
                             // Talvez quando eu trocar pro Navigator 2 eu resolva essa gambiarra...
-                            if (formKey.currentState!.validate()) {
+                            if (_editionFormKey.currentState!.validate()) {
                               setState(() {
                                 _currentPaletteInfo =
                                     _paletteStateNotifier.updatePalette(
                                   _currentPaletteInfo,
-                                  name: nameController.text,
-                                  description: descriptionController.text,
+                                  name: _nameController.text,
+                                  description: _descriptionController.text,
                                 );
                               });
+
                               Navigator.pop(context);
                             }
                           },
@@ -254,18 +263,32 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
     );
   }
 
-  // TODO: ajustar para exportar para o formato selecionado nas configurações.
   void _shareAction(BuildContext context) async {
     final documents = await getApplicationDocumentsDirectory();
+    final settings = Provider.of<SettingsStateNotifier>(context, listen: false);
 
-    final paletteFile =
-        File(documents.path + "/${_currentPaletteInfo.name}.gpl");
+    File paletteFile;
+    List<String> mimeTypes = [];
 
-    await paletteFile.writeAsString(_currentPaletteInfo.toGpl());
+    switch (settings.state.fileType) {
+      case FileType.gpl:
+        mimeTypes = ["application/gpl"];
+        paletteFile = File(documents.path + "/${_currentPaletteInfo.name}.gpl");
+        await paletteFile.writeAsString(_currentPaletteInfo.toGpl());
+        break;
+      case FileType.jasc_pal:
+        mimeTypes = ["application/pal"];
+        paletteFile = File(documents.path + "/${_currentPaletteInfo.name}.pal");
+        await paletteFile.writeAsString(_currentPaletteInfo.toJascPal());
+        break;
+      case FileType.hex:
+        mimeTypes = ["application/hex"];
+        paletteFile = File(documents.path + "/${_currentPaletteInfo.name}.hex");
+        await paletteFile.writeAsString(_currentPaletteInfo.toHex());
+        break;
+    }
 
-    debugPrint(paletteFile.existsSync().toString());
-
-    await Share.shareFiles([paletteFile.path], mimeTypes: ["application/gpl"]);
+    await Share.shareFiles([paletteFile.path], mimeTypes: mimeTypes);
   }
 
   void _deleteAction(BuildContext context) {

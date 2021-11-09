@@ -14,6 +14,15 @@ class HomePage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: _header(context),
+              ),
+            ];
+          },
           body: Builder(
             builder: (context) {
               return CustomScrollView(
@@ -53,15 +62,6 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                sliver: _header(context),
-              ),
-            ];
-          },
         ),
         floatingActionButton: FloatingActionButton(
           child: FaIcon(
