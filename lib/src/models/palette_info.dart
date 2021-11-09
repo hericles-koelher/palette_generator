@@ -52,9 +52,11 @@ class PaletteInfo {
   String toGpl() {
     String str = "Gimp Palette\n";
 
-    str += "Name: $name\n";
+    str += "#Palette Name: $name\n";
 
-    str += "Colors: ${colors.length}\n";
+    str += "#Description: $description\n";
+
+    str += "#Colors: ${colors.length}\n";
 
     for (int i = 0; i < colors.length; i++) {
       int colorValue = colors[i];
