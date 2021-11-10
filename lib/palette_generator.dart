@@ -44,12 +44,12 @@ class _PaletteGeneratorState extends State<PaletteGenerator> {
             ),
           ),
           GoRoute(
-            path: "info/:palette",
+            path: "info/:id",
             name: PaletteInfoPage.name,
             pageBuilder: (context, state) => MaterialPage(
               key: state.pageKey,
               child: PaletteInfoPage(
-                _paletteStateNotifier.getPalette(state.params["palette"]!),
+                _paletteStateNotifier.getPalette(state.params["id"]!),
               ),
             ),
           ),
