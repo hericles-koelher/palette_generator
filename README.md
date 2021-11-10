@@ -55,7 +55,7 @@
 - [x] Palette creation
 - [x] Palette persist
 - [x] Export palette
-- [ ] Migration to Navigator 2
+- [x] Migration to Navigator 2
 - [ ] Internationalization
 
 ---

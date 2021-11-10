@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:hive/hive.dart';
 import 'package:palette_generator/src/constants.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -112,6 +111,10 @@ class PaletteStateNotifier extends StateNotifier<List<PaletteInfo>>
       String errorMsg = "Tried to delete a palette with invalid ID!";
       throw Exception(errorMsg);
     }
+  }
+
+  PaletteInfo getPalette(String id) {
+    return state.where((palette) => palette.id == id).first;
   }
 
   void undo() {

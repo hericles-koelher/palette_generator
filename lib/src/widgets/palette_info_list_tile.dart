@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../models.dart';
 import '../screens.dart';
@@ -38,11 +39,9 @@ class PaletteInfoListTile extends StatelessWidget {
         },
       ),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PaletteDetailPage(paletteInfo),
-          ),
+        context.goNamed(
+          PaletteInfoPage.name,
+          params: {"id": paletteInfo.id},
         );
       },
     );

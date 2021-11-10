@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../models.dart';
 import '../screens.dart';
 import '../widgets.dart';
 
 class HomePage extends StatelessWidget {
+  static const String name = "home";
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -68,12 +71,7 @@ class HomePage extends StatelessWidget {
             FontAwesomeIcons.plus,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PaletteCreationPage(),
-              ),
-            );
+            context.goNamed(PaletteCreationPage.name);
           },
         ),
         drawer: ApplicationDrawer(),

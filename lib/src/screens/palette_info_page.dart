@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -18,24 +17,24 @@ enum _DetailsPageActions {
   delete,
 }
 
-class PaletteDetailPage extends StatefulWidget {
+class PaletteInfoPage extends StatefulWidget {
+  static const String name = "info";
   final PaletteInfo paletteInfo;
 
-  PaletteDetailPage(this.paletteInfo);
+  PaletteInfoPage(this.paletteInfo);
 
   @override
-  State<PaletteDetailPage> createState() =>
-      _PaletteDetailPageState(paletteInfo);
+  State<PaletteInfoPage> createState() => _PaletteInfoPageState(paletteInfo);
 }
 
-class _PaletteDetailPageState extends State<PaletteDetailPage> {
+class _PaletteInfoPageState extends State<PaletteInfoPage> {
   late final PaletteStateNotifier _paletteStateNotifier;
-  final GlobalKey<FormState> _editionFormKey;
+  final _editionFormKey;
   final _nameController;
   final _descriptionController;
   PaletteInfo _currentPaletteInfo;
 
-  _PaletteDetailPageState(this._currentPaletteInfo)
+  _PaletteInfoPageState(this._currentPaletteInfo)
       : _editionFormKey = GlobalKey<FormState>(),
         _nameController = TextEditingController(),
         _descriptionController = TextEditingController(),
@@ -235,7 +234,6 @@ class _PaletteDetailPageState extends State<PaletteDetailPage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Talvez quando eu trocar pro Navigator 2 eu resolva essa gambiarra...
                             if (_editionFormKey.currentState!.validate()) {
                               setState(() {
                                 _currentPaletteInfo =

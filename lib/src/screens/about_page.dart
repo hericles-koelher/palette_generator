@@ -4,7 +4,9 @@ import 'package:palette_generator/src/constants.dart';
 
 import '../widgets.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutPage extends StatelessWidget {
+  static const String name = "about";
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

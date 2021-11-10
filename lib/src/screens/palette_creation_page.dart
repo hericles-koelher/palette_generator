@@ -3,12 +3,15 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:palette_generator/src/constants.dart';
 import 'package:provider/provider.dart';
 import '../models.dart';
 import '../widgets.dart';
 
 class PaletteCreationPage extends StatefulWidget {
+  static const String name = "creation";
+
   @override
   State<PaletteCreationPage> createState() => _PaletteCreationPageState();
 }

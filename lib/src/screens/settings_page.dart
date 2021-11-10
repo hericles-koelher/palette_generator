@@ -7,7 +7,9 @@ import 'package:palette_generator/src/models.dart';
 import 'package:provider/provider.dart';
 import '../widgets.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsPage extends StatelessWidget {
+  static const String name = "settings";
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

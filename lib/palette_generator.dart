@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:palette_generator/src/theme_manager.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,56 @@ class _PaletteGeneratorState extends State<PaletteGenerator> {
   late final ColorListStateNotifier _colorListStateNotifier;
   late final SliderStateNotifier _sliderStateNotifier;
   late final SettingsStateNotifier _settingsStateNotifier;
+  // using "late final" just for access paletteStateNotifier
+  late final _goRouter = GoRouter(
+    routes: [
+      GoRoute(
+        path: "/",
+        name: HomePage.name,
+        pageBuilder: (context, state) => MaterialPage(
+          key: state.pageKey,
+          child: HomePage(),
+        ),
+        routes: [
+          GoRoute(
+            path: "create",
+            name: PaletteCreationPage.name,
+            pageBuilder: (context, state) => MaterialPage(
+              key: state.pageKey,
+              child: PaletteCreationPage(),
+            ),
+          ),
+          GoRoute(
+            path: "info/:palette",
+            name: PaletteInfoPage.name,
+            pageBuilder: (context, state) => MaterialPage(
+              key: state.pageKey,
+              child: PaletteInfoPage(
+                _paletteStateNotifier.getPalette(state.params["palette"]!),
+              ),
+            ),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: "/settings",
+        name: SettingsPage.name,
+        pageBuilder: (context, state) => MaterialPage(
+          key: state.pageKey,
+          child: SettingsPage(),
+        ),
+      ),
+      GoRoute(
+        path: "/about",
+        name: AboutPage.name,
+        pageBuilder: (context, state) => MaterialPage(
+          key: state.pageKey,
+          child: AboutPage(),
+        ),
+      ),
+    ],
+    errorPageBuilder: errorPage,
+  );
 
   @override
   void initState() {
@@ -67,11 +118,20 @@ class _PaletteGeneratorState extends State<PaletteGenerator> {
         StateNotifierProvider.value(value: _sliderStateNotifier),
         StateNotifierProvider.value(value: _settingsStateNotifier),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: "Palette Generator",
         theme: ThemeManager.light,
-        home: HomePage(),
+        routeInformationParser: _goRouter.routeInformationParser,
+        routerDelegate: _goRouter.routerDelegate,
+      ),
+    );
+  }
+
+  static Page errorPage(BuildContext context, GoRouterState state) {
+    return MaterialPage(
+      child: Center(
+        child: Text("An error occurred!"),
       ),
     );
   }

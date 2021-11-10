@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import '../screens.dart';
 
 class ApplicationDrawer extends StatelessWidget {
@@ -49,12 +50,7 @@ class ApplicationDrawer extends StatelessWidget {
               title: Text("Home"),
               leading: FaIcon(FontAwesomeIcons.home),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  ),
-                );
+                context.goNamed(HomePage.name);
               },
             ),
           ),
@@ -63,12 +59,7 @@ class ApplicationDrawer extends StatelessWidget {
               title: Text("Settings"),
               leading: FaIcon(FontAwesomeIcons.cog),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SettingsScreen(),
-                  ),
-                );
+                context.goNamed(SettingsPage.name);
               },
             ),
           ),
@@ -77,12 +68,7 @@ class ApplicationDrawer extends StatelessWidget {
               title: Text("About"),
               leading: FaIcon(FontAwesomeIcons.infoCircle),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AboutScreen(),
-                  ),
-                );
+                context.goNamed(AboutPage.name);
               },
             ),
           ),
