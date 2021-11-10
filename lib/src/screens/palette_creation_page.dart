@@ -91,6 +91,7 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
           vertical: kVerticalPadding,
           horizontal: kHorizontalPadding,
         ),
+        physics: BouncingScrollPhysics(),
         children: [
           Form(
             key: _formKey,

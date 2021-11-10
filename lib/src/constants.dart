@@ -25,4 +25,4 @@ const double kVerticalPadding = 40;
 
 const double kHorizontalPadding = 20;
 
-const double kAppVersion = 0.8;
+const double kAppVersion = 0.9;
