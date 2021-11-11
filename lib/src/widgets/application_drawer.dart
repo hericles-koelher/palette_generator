@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../screens.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ApplicationDrawer extends StatelessWidget {
   const ApplicationDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
+
     return Drawer(
       child: Column(
         children: [
@@ -24,7 +27,7 @@ class ApplicationDrawer extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "Palette Generator",
+                        localizations!.appName,
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
@@ -47,7 +50,7 @@ class ApplicationDrawer extends StatelessWidget {
           ),
           Flexible(
             child: ListTile(
-              title: Text("Home"),
+              title: Text(localizations.home),
               leading: FaIcon(FontAwesomeIcons.home),
               onTap: () {
                 context.goNamed(HomePage.name);
@@ -56,7 +59,7 @@ class ApplicationDrawer extends StatelessWidget {
           ),
           Flexible(
             child: ListTile(
-              title: Text("Settings"),
+              title: Text(localizations.settings),
               leading: FaIcon(FontAwesomeIcons.cog),
               onTap: () {
                 context.goNamed(SettingsPage.name);
@@ -65,7 +68,7 @@ class ApplicationDrawer extends StatelessWidget {
           ),
           Flexible(
             child: ListTile(
-              title: Text("About"),
+              title: Text(localizations.about),
               leading: FaIcon(FontAwesomeIcons.infoCircle),
               onTap: () {
                 context.goNamed(AboutPage.name);

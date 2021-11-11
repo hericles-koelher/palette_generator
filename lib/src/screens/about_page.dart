@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
   static const String name = "about";
@@ -10,10 +11,11 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final localizations = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("About"),
+        title: Text(localizations!.about),
       ),
       body: FutureBuilder<PackageInfo>(
         future: PackageInfo.fromPlatform(),
@@ -26,7 +28,7 @@ class AboutPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    packageInfo.appName,
+                    localizations.appName,
                     style: textTheme.headline5,
                   ),
                   Padding(
@@ -45,7 +47,7 @@ class AboutPage extends StatelessWidget {
                     height: 25,
                   ),
                   Text(
-                    "Developed by Hericles Koelher",
+                    localizations.developedBy("Hericles Koelher"),
                     style: textTheme.bodyText1,
                   ),
                   Row(

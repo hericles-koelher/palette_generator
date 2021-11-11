@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 import '../models.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NumberOfColorsSlider extends StatelessWidget {
   const NumberOfColorsSlider({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class NumberOfColorsSlider extends StatelessWidget {
       context,
       listen: false,
     );
+    final localizations = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
@@ -28,7 +30,7 @@ class NumberOfColorsSlider extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Number of colors:",
+                      localizations!.numberOfColors,
                     ),
                     Text(
                       state.toString(),

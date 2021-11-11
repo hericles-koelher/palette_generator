@@ -1,0 +1,93 @@
+{
+  "@@locale": "pt",
+  "about": "Sobre",
+  "@about": {},
+  "all": "Todas",
+  "@all": {},
+  "appName": "Gerador de Paletas",
+  "@appName": {},
+  "ascending": "Ascendente",
+  "@ascending": {},
+  "cancel": "Cancelar",
+  "@cancel": {},
+  "createYourPalette": "Crie sua paleta",
+  "@createYourPalette": {},
+  "delete": "Apagar",
+  "@delete": {},
+  "descending": "Decrescente",
+  "@descending": {},
+  "description": "Descrição",
+  "@description": {},
+  "developedBy": "Desenvolvido por {devName}",
+  "@developedBy": {
+    "description": "Give credits to the app developer",
+    "placeholders": {
+      "devName": {
+        "type": "String",
+        "example": "Bruno"
+      }
+    }
+  },
+  "done": "Feito",
+  "@done": {},
+  "edit": "Editar",
+  "@edit": {},
+  "errorMessage": "Ocorreu um erro, entre em contato com o desenvolvedor.",
+  "@errorMessage": {
+    "description": "Generic error message."
+  },
+  "exportFileFormat": "Formato de arquivo de exportação",
+  "@exportFileFormat": {},
+  "favorites": "Favoritas",
+  "@favorites": {},
+  "home": "Inicio",
+  "@home": {},
+  "information": "Informações",
+  "@information": {},
+  "maximum": "Máximo",
+  "@maximum": {},
+  "minimum": "Mínimo",
+  "@minimum": {},
+  "name": "Nome",
+  "@name": {},
+  "newest": "Mais novo",
+  "@newest": {},
+  "numberOfColors": "Número de cores",
+  "@numberOfColors": {},
+  "oldest": "Mais Antigo",
+  "@oldest": {},
+  "optional": "Opcional",
+  "@optional": {},
+  "paletteBy": "Paleta desenvolvida por {appName}",
+  "@paletteBy": {
+    "description": "Give credits to the app",
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Palette Generator"
+      }
+    }
+  },
+  "paletteCreationErrorMessage": "Por favor, insira o nome da sua paleta.",
+  "@paletteCreationErrorMessage": {},
+  "paletteDeletedMessage": "A paleta {paletteName}foi excluída.",
+  "@paletteDeletedMessage": {
+    "description": "Inform which palette was deleted",
+    "placeholders": {
+      "paletteName": {
+        "type": "String",
+        "example": "GBA Palette"
+      }
+    }
+  },
+  "refresh": "Atualizar",
+  "@refresh": {},
+  "settings": "Configurações",
+  "@settings": {},
+  "share": "Compartilhar",
+  "@share": {},
+  "sortBy": "Ordenar por",
+  "@sortBy": {},
+  "undo": "Desfazer",
+  "@undo": {}
+}

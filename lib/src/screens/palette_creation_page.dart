@@ -3,11 +3,11 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:palette_generator/src/constants.dart';
 import 'package:provider/provider.dart';
 import '../models.dart';
 import '../widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaletteCreationPage extends StatefulWidget {
   static const String name = "creation";
@@ -51,6 +51,8 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -63,7 +65,7 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
           },
         ),
         title: Text(
-          "Create your palette",
+          localizations!.createYourPalette,
         ),
         actions: [
           IconButton(
@@ -102,12 +104,12 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
                   child: TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                      labelText: "Palette Name",
+                      labelText: localizations.name,
                       border: OutlineInputBorder(),
                     ),
                     validator: (String? text) {
                       if (text == null || text.isEmpty) {
-                        return "Please give your palette a name.";
+                        return localizations.paletteCreationErrorMessage;
                       } else {
                         return null;
                       }
@@ -125,8 +127,8 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
                     maxLines: 5,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
-                      labelText: "Palette Description*",
-                      helperText: "*Optional",
+                      labelText: "${localizations.description}*",
+                      helperText: "*${localizations.optional}",
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -143,7 +145,7 @@ class _PaletteCreationPageState extends State<PaletteCreationPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        label: Text("Refresh"),
+        label: Text(localizations.refresh),
         icon: FaIcon(FontAwesomeIcons.syncAlt),
         onPressed: () {
           colorListNotifier.createColorList(

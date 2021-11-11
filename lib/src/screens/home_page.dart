@@ -7,12 +7,15 @@ import 'package:provider/provider.dart';
 import '../models.dart';
 import '../screens.dart';
 import '../widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   static const String name = "home";
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -42,10 +45,10 @@ class HomePage extends StatelessWidget {
                           child: TabBar(
                             tabs: [
                               Tab(
-                                text: "All",
+                                text: localizations!.all,
                               ),
                               Tab(
-                                text: "Favorites",
+                                text: localizations.favorites,
                               ),
                             ],
                           ),
@@ -82,6 +85,7 @@ class HomePage extends StatelessWidget {
   Widget _header(context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double barHeight = 0.4 * screenHeight;
+    final localizations = AppLocalizations.of(context);
 
     return SliverAppBar(
       pinned: true,
@@ -105,7 +109,7 @@ class HomePage extends StatelessWidget {
         ),
         centerTitle: true,
         title: Text(
-          "PALETTE GENERATOR",
+          localizations!.appName.toUpperCase(),
           style: Theme.of(context)
               .textTheme
               .headline5!
@@ -118,6 +122,7 @@ class HomePage extends StatelessWidget {
   Widget _listPalettes(BuildContext context, List<PaletteInfo> palettes) {
     final paletteNotifier =
         Provider.of<PaletteStateNotifier>(context, listen: false);
+    final localizations = AppLocalizations.of(context);
 
     return ListView.separated(
       itemCount: palettes.length,
@@ -135,10 +140,11 @@ class HomePage extends StatelessWidget {
           paletteNotifier.deletePalette(paletteId);
 
           final SnackBar snackBar = SnackBar(
-            content:
-                Text("Palette \'${palette.paletteInfo.name}\' was deleted!"),
+            content: Text(
+              localizations!.paletteDeletedMessage(palette.paletteInfo.name),
+            ),
             action: SnackBarAction(
-              label: "UNDO",
+              label: localizations.undo,
               onPressed: () {
                 paletteNotifier.undo();
               },

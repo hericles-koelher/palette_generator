@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:palette_generator/src/theme_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'src/constants.dart';
 import 'src/models.dart';
 import 'src/screens.dart';
@@ -120,6 +121,8 @@ class _PaletteGeneratorState extends State<PaletteGenerator> {
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         title: "Palette Generator",
         theme: ThemeManager.light,
         routeInformationParser: _goRouter.routeInformationParser,
@@ -131,7 +134,7 @@ class _PaletteGeneratorState extends State<PaletteGenerator> {
   static Page errorPage(BuildContext context, GoRouterState state) {
     return MaterialPage(
       child: Center(
-        child: Text("An error occurred!"),
+        child: Text(AppLocalizations.of(context)!.errorMessage),
       ),
     );
   }

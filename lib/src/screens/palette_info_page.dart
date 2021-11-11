@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../models.dart';
 import '../widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum _DetailsPageActions {
   edit,
@@ -29,6 +30,7 @@ class PaletteInfoPage extends StatefulWidget {
 
 class _PaletteInfoPageState extends State<PaletteInfoPage> {
   late final PaletteStateNotifier _paletteStateNotifier;
+  late final localizations;
   final _editionFormKey;
   final _nameController;
   final _descriptionController;
@@ -45,6 +47,8 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
     _currentPaletteInfo = widget.paletteInfo;
     _paletteStateNotifier =
         Provider.of<PaletteStateNotifier>(context, listen: false);
+
+    localizations = AppLocalizations.of(context);
 
     super.initState();
   }
@@ -71,7 +75,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
           },
         ),
         title: Text(
-          "Info",
+          localizations!.information,
         ),
         actions: [
           PopupMenuButton<_DetailsPageActions>(
@@ -91,17 +95,17 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
             },
             itemBuilder: (_) => [
               buildPopupMenuItem(
-                label: "Edit",
+                label: localizations.edit,
                 value: _DetailsPageActions.edit,
                 iconData: FontAwesomeIcons.edit,
               ),
               buildPopupMenuItem(
-                label: "Share",
+                label: localizations.share,
                 value: _DetailsPageActions.share,
                 iconData: FontAwesomeIcons.shareAlt,
               ),
               buildPopupMenuItem(
-                label: "Delete",
+                label: localizations.delete,
                 value: _DetailsPageActions.delete,
                 iconData: FontAwesomeIcons.trashAlt,
               ),
@@ -117,7 +121,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
         ),
         children: [
           Text(
-            "Palette Name:",
+            "${localizations.name}:",
             style: textTheme.bodyText1,
           ),
           Padding(
@@ -127,13 +131,14 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
             ),
           ),
           Text(
-            "Description:",
+            "${localizations.description}:",
             style: textTheme.bodyText1,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
             child: Text(
-              _currentPaletteInfo.description ?? "Palette by Palette Generator",
+              _currentPaletteInfo.description ??
+                  localizations.paletteBy(localizations.appName),
               maxLines: 5,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.justify,
@@ -190,12 +195,12 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
                     child: TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                        labelText: "Palette Name",
+                        labelText: localizations!.name,
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? text) {
                         if (text == null || text.isEmpty) {
-                          return "Please give your palette a name.";
+                          return localizations.paletteCreationErrorMessage;
                         } else {
                           return null;
                         }
@@ -213,8 +218,8 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
-                        labelText: "Palette Description*",
-                        helperText: "*Optional",
+                        labelText: "${localizations.description}*",
+                        helperText: "*${localizations.optional}}",
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -229,7 +234,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
                         TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text(
-                            "Cancel",
+                            localizations.cancel,
                           ),
                         ),
                         ElevatedButton(
@@ -247,7 +252,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
                               Navigator.pop(context);
                             }
                           },
-                          child: Text("Apply"),
+                          child: Text(localizations.done),
                         ),
                       ],
                     ),
@@ -294,6 +299,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
 
     Navigator.pop(context);
 
+    // TODO: add to l10n
     final SnackBar snackBar = SnackBar(
       content: Text(
         "Palette \'${_currentPaletteInfo.name}\' was deleted!",

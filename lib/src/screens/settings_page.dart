@@ -6,6 +6,7 @@ import 'package:palette_generator/src/constants.dart';
 import 'package:palette_generator/src/models.dart';
 import 'package:provider/provider.dart';
 import '../widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String name = "settings";
@@ -16,10 +17,11 @@ class SettingsPage extends StatelessWidget {
     final textTheme = theme.textTheme;
     final SettingsStateNotifier _settingsStateNotifier =
         Provider.of<SettingsStateNotifier>(context, listen: false);
+    final localizations = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: Text(localizations!.settings),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -34,7 +36,7 @@ class SettingsPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Number of colors",
+                  localizations.numberOfColors,
                   style: textTheme.bodyText1,
                 ),
                 Padding(
@@ -43,7 +45,7 @@ class SettingsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       buildNumberPicker(
-                        label: "Minimum",
+                        label: localizations.minimum,
                         value: state.minColors,
                         onChanged: (value) {
                           _settingsStateNotifier.setMinColors(value);
@@ -51,7 +53,7 @@ class SettingsPage extends StatelessWidget {
                         context: context,
                       ),
                       buildNumberPicker(
-                        label: "Maximum",
+                        label: localizations.maximum,
                         value: state.maxColors,
                         onChanged: (value) {
                           _settingsStateNotifier.setMaxColors(value);
@@ -63,7 +65,7 @@ class SettingsPage extends StatelessWidget {
                 ),
                 const Divider(),
                 Text(
-                  "Sorting schema",
+                  localizations.sortBy,
                   style: textTheme.bodyText1,
                 ),
                 DropdownButton<SortByPalette>(
@@ -72,7 +74,7 @@ class SettingsPage extends StatelessWidget {
                   items: [
                     buildSortDropdown(
                       value: SortByPalette.name_ascending,
-                      label: "Ascending",
+                      label: localizations.ascending,
                       icon: FaIcon(
                         FontAwesomeIcons.sortAlphaDown,
                         color: theme.colorScheme.primary,
@@ -80,7 +82,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                     buildSortDropdown(
                       value: SortByPalette.name_descending,
-                      label: "Descending",
+                      label: localizations.descending,
                       icon: FaIcon(
                         FontAwesomeIcons.sortAlphaUp,
                         color: theme.colorScheme.primary,
@@ -88,7 +90,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                     buildSortDropdown(
                       value: SortByPalette.creation_newest,
-                      label: "Newest",
+                      label: localizations.newest,
                       icon: FaIcon(
                         FontAwesomeIcons.sortNumericDown,
                         color: theme.colorScheme.primary,
@@ -96,7 +98,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                     buildSortDropdown(
                       value: SortByPalette.creation_oldest,
-                      label: "Oldest",
+                      label: localizations.oldest,
                       icon: FaIcon(
                         FontAwesomeIcons.sortNumericUp,
                         color: theme.colorScheme.primary,
@@ -108,7 +110,7 @@ class SettingsPage extends StatelessWidget {
                   },
                 ),
                 Text(
-                  "Export file format",
+                  localizations.exportFileFormat,
                   style: textTheme.bodyText1,
                 ),
                 DropdownButton<FileType>(
