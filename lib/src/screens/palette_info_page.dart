@@ -30,7 +30,7 @@ class PaletteInfoPage extends StatefulWidget {
 
 class _PaletteInfoPageState extends State<PaletteInfoPage> {
   late final PaletteStateNotifier _paletteStateNotifier;
-  late final localizations;
+  late final AppLocalizations localizations;
   final _editionFormKey;
   final _nameController;
   final _descriptionController;
@@ -48,7 +48,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
     _paletteStateNotifier =
         Provider.of<PaletteStateNotifier>(context, listen: false);
 
-    localizations = AppLocalizations.of(context);
+    localizations = AppLocalizations.of(context)!;
 
     super.initState();
   }
@@ -75,7 +75,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
           },
         ),
         title: Text(
-          localizations!.information,
+          localizations.information,
         ),
         actions: [
           PopupMenuButton<_DetailsPageActions>(
@@ -195,7 +195,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
                     child: TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                        labelText: localizations!.name,
+                        labelText: localizations.name,
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? text) {
@@ -299,13 +299,12 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
 
     Navigator.pop(context);
 
-    // TODO: add to l10n
     final SnackBar snackBar = SnackBar(
       content: Text(
-        "Palette \'${_currentPaletteInfo.name}\' was deleted!",
+        localizations.paletteDeletedMessage(_currentPaletteInfo.name),
       ),
       action: SnackBarAction(
-        label: "UNDO",
+        label: localizations.undo,
         onPressed: () {
           _paletteStateNotifier.undo();
         },
