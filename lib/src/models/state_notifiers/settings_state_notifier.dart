@@ -20,20 +20,20 @@ class SettingsStateNotifier extends StateNotifier<Settings> {
     });
   }
 
-  void sortBy(SortByPalette option) {
-    state = state.copyWith(sortByPalette: option);
-  }
-
-  void changeExportFileFormat(FileType type) {
-    state = state.copyWith(fileType: type);
-  }
-
-  void setMinColors(int value) {
-    state = state.copyWith(minColors: value);
-  }
-
-  void setMaxColors(int value) {
-    state = state.copyWith(maxColors: value);
+  void updateSettings({
+    int? minColors,
+    int? maxColors,
+    SortByPalette? sortByPalette,
+    FileType? fileType,
+    String? language,
+  }) {
+    state = state.copyWith(
+      minColors: minColors,
+      maxColors: maxColors,
+      sortByPalette: sortByPalette,
+      fileType: fileType,
+      language: language,
+    );
   }
 
   @override

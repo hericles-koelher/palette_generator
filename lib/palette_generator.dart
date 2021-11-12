@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/locales.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
@@ -119,14 +120,18 @@ class _PaletteGeneratorState extends State<PaletteGenerator> {
         StateNotifierProvider.value(value: _sliderStateNotifier),
         StateNotifierProvider.value(value: _settingsStateNotifier),
       ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        supportedLocales: AppLocalizations.supportedLocales,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        title: "Palette Generator",
-        theme: ThemeManager.light,
-        routeInformationParser: _goRouter.routeInformationParser,
-        routerDelegate: _goRouter.routerDelegate,
+      child: StateNotifierBuilder<Settings>(
+        stateNotifier: _settingsStateNotifier,
+        builder: (context, state, child) => MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          locale: state.language != null ? Locale(state.language!) : null,
+          title: "Palette Generator",
+          theme: ThemeManager.light,
+          routeInformationParser: _goRouter.routeInformationParser,
+          routerDelegate: _goRouter.routerDelegate,
+        ),
       ),
     );
   }

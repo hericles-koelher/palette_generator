@@ -11,3 +11,12 @@ extension ParseFileTypeToString on FileType {
         .join(" ");
   }
 }
+
+extension Capitalize on String {
+  String toCapitalized() {
+    return this
+        .split(" ")
+        .map((word) => "${word[0].toUpperCase()}${word.substring(1)}")
+        .join(" ");
+  }
+}

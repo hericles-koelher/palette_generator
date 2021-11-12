@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:palette_generator/src/models.dart';
 import 'package:state_notifier/state_notifier.dart';
 

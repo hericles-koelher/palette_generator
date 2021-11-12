@@ -21,13 +21,14 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       maxColors: fields[1] as int,
       sortByPalette: fields[2] as SortByPalette,
       fileType: fields[3] as FileType,
+      language: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.minColors)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       ..writeByte(2)
       ..write(obj.sortByPalette)
       ..writeByte(3)
-      ..write(obj.fileType);
+      ..write(obj.fileType)
+      ..writeByte(4)
+      ..write(obj.language);
   }
 
   @override

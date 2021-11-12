@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/native_locale_names.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -48,7 +49,8 @@ class SettingsPage extends StatelessWidget {
                         label: localizations.minimum,
                         value: state.minColors,
                         onChanged: (value) {
-                          _settingsStateNotifier.setMinColors(value);
+                          _settingsStateNotifier.updateSettings(
+                              minColors: value);
                         },
                         context: context,
                       ),
@@ -56,7 +58,8 @@ class SettingsPage extends StatelessWidget {
                         label: localizations.maximum,
                         value: state.maxColors,
                         onChanged: (value) {
-                          _settingsStateNotifier.setMaxColors(value);
+                          _settingsStateNotifier.updateSettings(
+                              maxColors: value);
                         },
                         context: context,
                       ),
@@ -106,7 +109,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ],
                   onChanged: (value) {
-                    _settingsStateNotifier.sortBy(value!);
+                    _settingsStateNotifier.updateSettings(sortByPalette: value);
                   },
                 ),
                 Text(
@@ -127,7 +130,29 @@ class SettingsPage extends StatelessWidget {
                       )
                       .toList(),
                   onChanged: (value) {
-                    _settingsStateNotifier.changeExportFileFormat(value!);
+                    _settingsStateNotifier.updateSettings(fileType: value);
+                  },
+                ),
+                Text(
+                  localizations.language,
+                  style: textTheme.bodyText1,
+                ),
+                DropdownButton<String>(
+                  value: state.language,
+                  isExpanded: true,
+                  items: AppLocalizations.supportedLocales
+                      .map(
+                        (locale) => DropdownMenuItem<String>(
+                          value: locale.languageCode,
+                          child: Text(
+                            all_native_names[locale.languageCode]!
+                                .toCapitalized(),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    _settingsStateNotifier.updateSettings(language: value);
                   },
                 ),
               ],

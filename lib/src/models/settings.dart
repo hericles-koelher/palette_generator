@@ -18,12 +18,16 @@ class Settings {
   @HiveField(3)
   final FileType fileType;
 
-  const Settings({
-    required this.minColors,
-    required this.maxColors,
-    required this.sortByPalette,
-    required this.fileType,
-  })  : assert(minColors >= kMinColors),
+  @HiveField(4)
+  final String? language;
+
+  const Settings(
+      {required this.minColors,
+      required this.maxColors,
+      this.sortByPalette = SortByPalette.creation_newest,
+      this.fileType = FileType.gpl,
+      this.language})
+      : assert(minColors >= kMinColors),
         assert(maxColors > minColors),
         assert(maxColors <= kMaxColors);
 
@@ -32,12 +36,14 @@ class Settings {
     int? maxColors,
     SortByPalette? sortByPalette,
     FileType? fileType,
+    String? language,
   }) {
     return Settings(
       minColors: minColors ?? this.minColors,
       maxColors: maxColors ?? this.maxColors,
       sortByPalette: sortByPalette ?? this.sortByPalette,
       fileType: fileType ?? this.fileType,
+      language: language ?? this.language,
     );
   }
 }
