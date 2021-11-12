@@ -219,7 +219,7 @@ class _PaletteInfoPageState extends State<PaletteInfoPage> {
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
                         labelText: "${localizations.description}*",
-                        helperText: "*${localizations.optional}}",
+                        helperText: "*${localizations.optional}",
                         border: OutlineInputBorder(),
                       ),
                     ),
