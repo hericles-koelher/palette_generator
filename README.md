@@ -23,7 +23,7 @@
 
 
 <h4 align="center"> 
-	 Status: Under Development
+	 Status: Finished
 </h4>
 
 <p align="center">
